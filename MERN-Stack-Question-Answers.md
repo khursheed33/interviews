@@ -1217,3 +1217,466 @@ API versioning is the practice of managing and evolving APIs over time to ensure
 - **Header versioning**: Including the version number in a custom HTTP header (e.g., X-API-Version: 1), allowing clients to specify the version indirectly in the request headers.
 - **Content negotiation versioning**: Negotiating the API version based on the content type or Accept header in the request, allowing clients and servers to agree on the appropriate version dynamically.
 - **Semantic versioning**: Following semantic versioning conventions (e.g., MAJOR.MINOR.PATCH) to indicate backward-compatible changes, breaking changes, and bug fixes in API versions, enabling clients to safely upgrade or downgrade without unexpected behavior.
+- 
+
+## Bonus ------------------------------
+
+# Interview Preparation Guide for Software Engineer Role at Infosys India
+
+## Introduction
+This document provides a comprehensive guide for preparing for interviews for the role of Software Engineer at Infosys India. It covers a range of topics including JavaScript, Node.js, web development concepts, architectural patterns, and best practices.
+
+## Table of Contents
+1. [Why Use Express.js Over Other Frameworks?](#1-why-use-expressjs-over-other-frameworks)
+2. [Functional Programming in JavaScript](#2-functional-programming-in-javascript)
+3. [Hoisting in JavaScript](#3-hoisting-in-javascript)
+4. [Immediately Invoked Function Expressions (IIFEs) in JavaScript](#4-immediately-invoked-function-expressions-iifes-in-javascript)
+5. [Currying in JavaScript](#5-currying-in-javascript)
+6. [Closure Function in JavaScript](#6-closure-function-in-javascript)
+7. [How Does Event Loop Work in Node.js?](#7-how-does-event-loop-work-in-nodejs)
+8. [Implementation of Redux in Node.js](#8-implementation-of-redux-in-nodejs)
+9. [MVVM, MVC, and Clean Architecture](#9-mvvm-mvc-and-clean-architecture)
+10. [Explanation of Microservices in Node.js](#10-explanation-of-microservices-in-nodejs)
+11. [Implementation of JWT and Passport for Authentication](#11-implementation-of-jwt-and-passport-for-authentication)
+12. [Session Management in Node.js](#12-session-management-in-nodejs)
+13. [Cache Databases in Node.js](#13-cache-databases-in-nodejs)
+14. [Advantages of Node.js Over Other Technologies](#14-advantages-of-nodejs-over-other-technologies)
+15. [Streams in Node.js](#15-streams-in-nodejs)
+16. [REPL (Read-Eval-Print Loop) in Node.js](#16-repl-read-eval-print-loop-in-nodejs)
+17. [npm vs npx vs yarn](#17-npm-vs-npx-vs-yarn)
+18. [Why and How Node.js is a Runtime Environment](#18-why-and-how-nodejs-is-a-runtime-environment)
+19. [Data Encryption and Password Hashing in Node.js](#19-data-encryption-and-password-hashing-in-nodejs)
+
+## 1. Why Use Express.js Over Other Frameworks?
+Express.js is a popular web framework for Node.js due to its simplicity, flexibility, and robust feature set compared to other frameworks like HTTP. Some benefits of using Express.js include:
+
+- **Middleware Support**: Express.js provides a middleware mechanism for handling HTTP requests and responses, enabling features like routing, request parsing, authentication, and error handling.
+- **Routing**: Express.js simplifies route handling by providing a concise and expressive syntax for defining routes and route handlers, supporting various HTTP methods (GET, POST, PUT, DELETE).
+- **Modularity**: Express.js follows a modular design approach, allowing developers to use third-party middleware and plugins to extend functionality and customize behavior according to project requirements.
+- **Community and Ecosystem**: Express.js has a large and active community of developers, extensive documentation, and a rich ecosystem of middleware, libraries, and plugins available through npm, making it suitable for a wide range of web development tasks.
+
+Example:
+```javascript
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+```
+
+## 2. Functional Programming in JavaScript
+Functional programming in JavaScript involves writing code in a declarative, composable, and immutable style, focusing on pure functions, higher-order functions, and function composition. Some key concepts and features of functional programming in JavaScript include:
+
+- **Pure Functions**: Functions that always return the same output for a given input, with no side effects, making them deterministic and easier to reason about.
+- **First-Class Functions**: Functions are treated as first-class citizens, meaning they can be assigned to variables, passed as arguments to other functions, and returned from other functions.
+- **Higher-Order Functions**: Functions that operate on other functions by taking one or more functions as arguments or returning a function as a result, enabling function composition and abstraction.
+- **Immutability**: Avoiding mutation of data by using immutable data structures and avoiding side effects, leading to more predictable and maintainable code.
+- **Recursion**: Solving problems by breaking them down into smaller, self-contained functions that call themselves recursively, enabling elegant solutions to certain types of problems.
+
+Example of a higher-order function:
+```javascript
+// Higher-order function that takes a function as an argument
+function greet(name, callback) {
+  return callback(name);
+}
+
+// Function passed as an argument to the higher-order function
+function sayHello(name) {
+  return `Hello, ${name}!`;
+}
+
+// Calling the higher-order function with the function argument
+console.log(greet('John', sayHello)); // Output: Hello, John!
+```
+
+## 3. Hoisting in JavaScript
+Hoisting is a JavaScript mechanism where variable and function declarations are moved to the top of their containing scope during the compilation phase. Hoisting applies to both variable declarations (`var`) and function declarations, but not variable initializations or function expressions. This means that variables and functions can be accessed before they are declared in the code.
+
+Example:
+```javascript
+console.log(x); // Output: undefined
+var x = 5;
+```
+In the above example, the variable `x` is hoisted to the top of the scope, so the `console.log` statement doesn't throw an error, but it logs `undefined`.
+
+## 4. Immediately Invoked Function Expressions (IIFEs) in JavaScript
+IIFEs are JavaScript functions that are immediately executed after they are defined. They are commonly used to create a new scope to encapsulate variables and avoid polluting the global scope. IIFEs are defined using function expressions and wrapped in parentheses to differentiate them from regular function declarations.
+
+Example:
+```javascript
+(function() {
+  var message = 'Hello, World!';
+
+
+  console.log(message); // Output: Hello, World!
+})();
+```
+
+## 5. Currying in JavaScript
+Currying is a functional programming technique where a function with multiple arguments is transformed into a sequence of functions, each taking a single argument. Currying enables partial application of functions, allowing developers to create new functions by fixing some parameters of an existing function.
+
+Example:
+```javascript
+function add(x) {
+  return function(y) {
+    return x + y;
+  };
+}
+
+const add5 = add(5); // Partial application of add function
+console.log(add5(3)); // Output: 8
+```
+
+## 6. Closure Function in JavaScript
+A closure is a JavaScript feature that allows a function to access and manipulate variables from its lexical scope, even after the outer function has finished executing. Closures are created whenever a function is defined within another function and retains access to the outer function's variables and parameters.
+
+Example:
+```javascript
+function outerFunction() {
+  var outerVariable = 'I am from outerFunction';
+  
+  function innerFunction() {
+    console.log(outerVariable); // Accessing outerVariable from outerFunction
+  }
+  
+  return innerFunction;
+}
+
+var innerFunc = outerFunction();
+innerFunc(); // Output: I am from outerFunction
+```
+
+## 7. How Does Event Loop Work in Node.js?
+The event loop is a crucial concept in JavaScript's concurrency model, responsible for handling asynchronous operations and executing callback functions in a non-blocking manner. The event loop continuously checks the call stack and the event queue, executing tasks in a single-threaded manner.
+
+When an asynchronous operation (e.g., setTimeout, AJAX request) is encountered, it is offloaded to the browser's APIs, and a callback function is registered to be executed once the operation completes. The event loop monitors the call stack and event queue, pushing tasks from the event queue onto the call stack when it is empty.
+
+The event loop is suitable for handling asynchronous operations, such as fetching data from a server, reading files from the filesystem, or responding to user interactions, where non-blocking behavior and concurrency are essential for responsiveness and performance.
+
+Example:
+```javascript
+console.log('Start');
+
+setTimeout(() => {
+  console.log('setTimeout');
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log('Promise');
+});
+
+console.log('End');
+```
+
+## 8. How Redux Can Be Implemented in Node.js?
+Redux is a state management library commonly used with React for managing application state in JavaScript applications. However, Redux can also be used in Node.js applications to manage server-side state, such as caching, session management, and data persistence. Here's an example of implementing Redux in a Node.js application:
+
+```javascript
+const redux = require('redux');
+const createStore = redux.createStore;
+
+// Reducer function
+const counterReducer = (state = { counter: 0 }, action) => {
+  if (action.type === 'INCREMENT') {
+    return {
+      counter: state.counter + 1
+    };
+  }
+  return state;
+};
+
+// Create Redux store
+const store = createStore(counterReducer);
+
+// Dispatch actions
+store.dispatch({ type: 'INCREMENT' });
+console.log(store.getState()); // Output: { counter: 1 }
+```
+
+## 9. MVVM, MVC, and Clean Architecture
+MVVM (Model-View-ViewModel), MVC (Model-View-Controller), and Clean Architecture are software architectural patterns used to structure applications and separate concerns effectively.
+
+- **MVVM**: MVVM separates an application into three components: Model, View, and ViewModel. ViewModel acts as an intermediary between the View and Model, handling user inputs, data binding, and updating the View based on changes in the Model.
+- **MVC**: MVC divides an application into three interconnected components: Model, View, and Controller. The Model represents the application's data and business logic, the View displays the user interface, and the Controller handles user input, updates the Model, and updates the View accordingly.
+- **Clean Architecture**: Clean Architecture emphasizes separation of concerns, independence of frameworks, and testability. It divides an application into concentric circles or layers, with the innermost layer containing business entities and use cases (core/domain layer), and outer layers representing interfaces (UI, database, frameworks).
+
+## 10. Explanation of Microservices in Node.js
+Microservices architecture is an architectural style that structures an application as a collection of loosely coupled, independently deployable services, each responsible for a specific business capability or domain. Microservices communicate over lightweight protocols like HTTP/REST or messaging queues, enabling decentralized data management, fault isolation, and scalability. Node.js is well-suited for building microservices due to its lightweight, event-driven architecture, and support for asynchronous I/O.
+
+## 11. Implementation of JWT and Passport for Authentication
+JWT (JSON Web Tokens) is an open standard for securely transmitting information between parties as JSON objects. Passport.js is a popular authentication middleware for Node.js applications that supports various authentication strategies, including JWT. Here's an example of implementing JWT and Passport for authentication:
+
+```javascript
+// JWT Implementation
+const jwt = require('jsonwebtoken');
+
+const payload = { user_id: 123456 };
+const secretKey = 'your_secret_key';
+
+const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
+console.log(token);
+
+const decoded = jwt.verify(token, secretKey);
+console.log(decoded);
+
+// Passport Implementation
+const passport = require('passport');
+const { Strategy, ExtractJwt } = require('passport-jwt');
+
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: secretKey
+};
+
+passport.use(new Strategy(jwtOptions, (payload, done) => {
+  // Find user by payload user_id
+  const user = getUserById(payload.user_id);
+
+  if (user) {
+    return done(null, user);
+  } else {
+    return done(null, false);
+  }
+}));
+```
+
+## 12. What is Session and How is it Used in Node.js?
+A session refers to the period during which a user interacts with a web application, typically starting when the user logs in and ending when the user logs out or the session expires. Sessions are used to maintain state and store user-specific data across multiple HTTP requests, allowing applications to identify and authenticate users, personalize content, and manage user sessions securely. Sessions in Node.js are typically implemented using middleware like `express-session`.
+
+## 13. Cache Databases in Node.js
+Cache databases, also known as caching systems or caching databases, are specialized data storage systems designed to store frequently accessed data in memory for fast retrieval and reduced latency. Cache databases improve application performance by caching computation results, database queries, or API responses. In Node.js applications, cache databases like Redis, Memcached, or in-memory caches (e.g., Node-cache) are commonly used to cache data. Example using Redis as a cache database with `node-redis` library:
+
+```javascript
+const redis = require('redis');
+const client = redis.createClient();
+
+// Store data in cache
+client.set('key', 'value');
+
+// Retrieve data from cache
+client.get('key', (err, result) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(result); // Output: value
+  }
+});
+```
+
+## 14. Why Node.js is Better to Use Over Other Technology
+Node.js offers several advantages over other technologies for building server-side applications:
+
+-
+
+ Performance: Node.js is built on the V8 JavaScript engine, providing high performance and scalability for handling concurrent connections with minimal overhead.
+- Asynchronous I/O: Node.js uses an event-driven, non-blocking I/O model, enabling efficient handling of asynchronous operations and real-time applications.
+- Developer Productivity: Node.js uses JavaScript, a ubiquitous language with a large developer community, extensive ecosystem, and consistent programming model across client and server environments, enhancing developer productivity and code reuse.
+- NPM Ecosystem: Node Package Manager (NPM) provides access to a vast ecosystem of open-source packages and modules for building, deploying, and managing Node.js applications, covering a wide range of functionalities.
+
+## 15. Explanation of Streams in Node.js
+Streams in Node.js are objects that enable reading or writing data from or to a source in a continuous fashion, in chunks, rather than loading the entire data into memory at once. Node.js provides several built-in stream classes for different use cases:
+
+- Readable streams: Used for reading data from a source, such as a file, network, or standard input (stdin).
+- Writable streams: Used for writing data to a destination, such as a file, network, or standard output (stdout).
+- Duplex streams: Both readable and writable, enabling bidirectional data transfer between a source and a destination.
+
+Example of a readable stream (reading from a file):
+
+```javascript
+const fs = require('fs');
+
+const readableStream = fs.createReadStream('input.txt');
+
+readableStream.on('data', (chunk) => {
+  console.log(chunk);
+});
+
+readableStream.on('end', () => {
+  console.log('End of file');
+});
+```
+
+## 16. REPL (Read-Eval-Print Loop) in Node.js
+REPL is an interactive programming environment available in Node.js that allows developers to enter JavaScript code, evaluate expressions, and see the results immediately. REPL provides a command-line interface (CLI) for interacting with Node.js, useful for prototyping, testing, and debugging code snippets. Example:
+
+```
+$ node
+> 2 + 2
+4
+> const greet = (name) => `Hello, ${name}!`
+undefined
+> greet('John')
+'Hello, John!'
+```
+
+## 17. npm vs npx vs yarn
+- npm (Node Package Manager): Default package manager for Node.js, used for installing, managing, and sharing JavaScript packages and dependencies.
+- npx (Node Package Executable): Package runner tool bundled with npm, allowing executing Node.js packages or binaries without installing them globally or locally.
+- yarn: Modern package manager for JavaScript projects, offering features like deterministic dependency resolution, parallel package installation, and offline package caching.
+
+## 18. Why and How Node.js is a Runtime Environment
+Node.js is a runtime environment for executing JavaScript code outside the browser, leveraging the V8 JavaScript engine developed by Google for use in the Chrome browser. Key characteristics of Node.js as a runtime environment include:
+
+- V8 JavaScript engine: Node.js uses the V8 engine to compile and execute JavaScript code, providing high performance and scalability.
+- Event-driven architecture: Node.js employs an event-driven, non-blocking I/O model, enabling efficient handling of asynchronous operations and real-time applications.
+- Cross-platform compatibility: Node.js runs on various operating systems, providing a consistent development and deployment experience across different environments.
+
+## 19. How to Encrypt Data in Node.js and Password Hashing
+Encryption and password hashing are cryptographic techniques used to protect sensitive data and passwords in Node.js applications:
+
+- Encryption: Process of converting plaintext data into ciphertext using an encryption algorithm and a secret key. Node.js provides built-in cryptographic modules like `crypto` for encryption and decryption.
+- Password Hashing: Process of converting a plaintext password into a hashed value using a cryptographic hashing algorithm (e.g., bcrypt, Argon2) and a random salt.
+
+Example of password hashing using `bcrypt` module:
+
+```javascript
+const bcrypt = require('bcrypt');
+
+const password = 'password123';
+const saltRounds = 10;
+
+bcrypt.hash(password, saltRounds, (err, hash) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('Hashed password:', hash);
+  }
+});
+```
+
+
+
+
+## Table of Contents
+1. [Payment Gateways and Implementation](#payment-gateways-and-implementation)
+2. [Deployment of Node.js App](#deployment-of-nodejs-app)
+3. [3rd Party API Integration](#3rd-party-api-integration)
+4. [Azure AD Integration](#azure-ad-integration)
+5. [Popular Node.js Packages](#popular-nodejs-packages)
+
+---
+
+## Payment Gateways and Implementation
+
+Payment gateways facilitate online transactions by securely authorizing and processing payments. In Node.js, you can implement payment gateways using various libraries and services. One popular example is **Stripe**.
+
+### Example in Node.js (Using Stripe)
+```javascript
+const stripe = require('stripe')('your_stripe_secret_key');
+
+const charge = await stripe.charges.create({
+  amount: 2000,
+  currency: 'usd',
+  source: 'tok_visa',
+  description: 'Example charge',
+});
+
+console.log(charge);
+```
+
+---
+
+## Deployment of Node.js App
+
+Deploying a Node.js application involves several steps, including setting up a server, configuring dependencies, and ensuring proper environment variables.
+
+### Steps for Deployment
+1. **Prepare Your Application**: Ensure all dependencies are listed in `package.json`.
+2. **Choose a Hosting Provider**: Options include Heroku, AWS, Azure, etc.
+3. **Configure Environment Variables**: Store sensitive information like API keys in environment variables.
+4. **Set Up Deployment Pipeline**: Use CI/CD tools like GitHub Actions or Jenkins for automated deployment.
+5. **Deploy Your Application**: Push your code to the selected hosting provider and follow their deployment process.
+
+---
+
+## 3rd Party API Integration
+
+Integrating third-party APIs allows your Node.js application to interact with external services like social media platforms, payment gateways, etc. For example, integrating Facebook authentication enables users to log in using their Facebook accounts.
+
+### Example: Facebook Authentication Integration
+```javascript
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook').Strategy;
+
+passport.use(new FacebookStrategy({
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
+```
+
+---
+
+## Azure AD Integration
+
+Azure Active Directory (Azure AD) integration allows you to authenticate and authorize users using their Azure AD credentials.
+
+### Example
+```javascript
+const passport = require('passport');
+const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
+
+passport.use(new OIDCStrategy({
+    identityMetadata: config.creds.identityMetadata,
+    clientID: config.creds.clientID,
+    responseType: 'code id_token',
+    responseMode: 'form_post',
+    redirectUrl: config.creds.redirectUrl,
+    allowHttpForRedirectUrl: true,
+    clientSecret: config.creds.clientSecret,
+    validateIssuer: false,
+    passReqToCallback: false,
+    scope: ['profile', 'offline_access']
+  },
+  function(iss, sub, profile, accessToken, refreshToken, done) {
+    if (!profile.oid) {
+      return done(new Error("No OID found"), null);
+    }
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+      findByOid(profile.oid, function(err, user) {
+        if (err) {
+          return done(err);
+        }
+        if (!user) {
+          // "Auto-registration"
+          users.push(profile);
+          return done(null, profile);
+        }
+        return done(null, user);
+      });
+    });
+  }
+));
+```
+
+---
+
+## Popular Node.js Packages
+
+Here are some popular Node.js packages widely used in application development:
+
+1. **Express**: Web application framework for building APIs and web apps.
+2. **Socket.io**: Enables real-time, bidirectional, and event-based communication.
+3. **Mongoose**: Elegant MongoDB object modeling for Node.js.
+4. **Axios**: Promise-based HTTP client for the browser and Node.js.
+5. **JWT**: JSON Web Token implementation for authentication.
+6. **Bcrypt**: Library for hashing passwords.
+7. **Passport**: Authentication middleware for Node.js.
+8. **Body-parser**: Middleware to parse incoming request bodies.
+9. **Multer**: Middleware for handling `multipart/form-data`, used for file uploads.
+10. **Nodemailer**: Module for sending emails.
+
+
+
