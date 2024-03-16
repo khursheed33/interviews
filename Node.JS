@@ -102,7 +102,6 @@
 15. [Discuss the benefits of using TypeScript over plain JavaScript for developing Node.js applications. How does TypeScript improve developer productivity and code maintainability?](#discuss-the-benefits-of-using-typescript-over-plain-javascript-for-developing-nodejs-applications-how-does-typescript-improve-developer-productivity-and-code-maintainability)
 16. [Describe the role of dependency injection in Node.js applications and how it can be implemented using frameworks like InversifyJS or NestJS to improve modularity and testability.](#describe-the-role-of-dependency-injection-in-nodejs-applications-and-how-it-can-be-implemented-using-frameworks-like-inversifyjs-or-nestjs-to-improve-modularity-and-testability)
 17. [Explain the differences between GraphQL subscriptions and WebSockets for real-time communication in Node.js applications. When would you choose one approach over the other?](#explain-the-differences-between-graphql-subscriptions-and-websockets-for-real-time-communication-in-nodejs-applications-when-would-you-choose-one-approach-over-the
-
 -other)
 18. [Discuss the principles of clean code and how you would apply them to write maintainable and readable code in Node.js projects. Provide examples of clean coding practices you follow.](#discuss-the-principles-of-clean-code-and-how-you-would-apply-them-to-write-maintainable-and-readable-code-in-nodejs-projects-provide-examples-of-clean-coding-practices-you-follow)
 19. [Describe the concept of serverless computing and its implications for Node.js development. How does serverless architecture change the way you design and deploy applications?](#describe-the-concept-of-serverless-computing-and-its-implications-for-nodejs-development-how-does-serverless-architecture-change-the-way-you-design-and-deploy-applications)
@@ -125,7 +124,7 @@
 
 ## Beginner:
 
-1. [What is Node.js?](#what-is-nodejs)
+1. What is Node.js?
     Node.js is a runtime environment that allows developers to run JavaScript code on the server-side. It uses the V8 JavaScript engine from Google Chrome and provides various built-in libraries for network and file system operations.
 
 2. [How do you install Node.js on your system?](#how-do-you-install-nodejs-on-your-system)
@@ -196,12 +195,12 @@
     });
     ```
 
-16. [What is Express.js and how does it relate to Node.js?](#what-is-expressjs-and-how-does-it-relate-to-nodejs)
+16. What is Express.js and how does it relate to Node.js?
     Express.js is a web application framework for Node.js that simplifies the process of building web applications and APIs. It provides a robust set of features for routing, middleware, request/response handling, templating, and more. Express.js builds on top of the Node.js HTTP module to provide higher-level ab
 
 stractions for web development.
 
-17. [How do you install Express.js and create a simple web application with it?](#how-do-you-install-expressjs-and-create-a-simple-web-application-with-it)
+17. How do you install Express.js and create a simple web application with it?
     Express.js can be installed via npm by running `npm install express`. Once installed, you can create a simple web application by requiring Express.js in your Node.js script, creating an Express application instance, defining routes and middleware, and starting the server. Example:
 
     ```javascript
