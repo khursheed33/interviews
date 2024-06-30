@@ -1,304 +1,692 @@
 # Generative AI QnA
-Great, let's start by generating some interview questions and answers on the topics you've mentioned. We'll include explanations and relevant Python code snippets where applicable.
 
-### Topic 1: Embeddings
+**Generative AI (LLMs):**
+Generative AI (gen AI) is a type of artificial intelligence (AI) that uses models to create content such as text, images, code, and synthetic data. Large language models (LLMs) are a specific type of generative AI that are designed to perform natural language processing (NLP) tasks. LLMs are deep learning models that analyze large amounts of data to identify patterns and predict language responses. They can then create new text combinations that mimic natural language based on their training data. The more parameters an LLM has, the more detailed and specific the content it can create.
 
-**Q1: What are embeddings in the context of natural language processing?**
+**OpenAI APIs**
 
-**A1:**
-Embeddings are dense vector representations of text (words, sentences, or documents) that capture semantic meaning. They map text to vectors of real numbers in a continuous vector space. This transformation makes it easier for machine learning models to process and understand textual data. Popular embedding techniques include Word2Vec, GloVe, and transformer-based models like BERT.
+| Model | Description |
+|-------|-------------|
+| GPT-4o | The fastest and most affordable flagship model |
+| GPT-4 Turbo and GPT-4 | The previous set of high-intelligence models |
+| GPT-3.5 Turbo | A fast, inexpensive model for simple tasks |
+| DALL·E | A model that can generate and edit images given a natural language prompt |
+| TTS | A set of models that can convert text into natural sounding spoken audio |
+| Whisper | A model that can convert audio into text |
+| Embeddings | A set of models that can convert text into a numerical form |
+| Moderation | A fine-tuned model that can detect whether text may be sensitive or unsafe |
+| GPT base | A set of models without instruction following that can understand as well as generate natural language or code |
+| Deprecated | A full list of models that have been deprecated along with the suggested replacement |
 
-**Q2: How are embeddings generated using transformer models like GPT?**
+1. Text-to-Text
 
-**A2:**
-Transformer models like GPT generate embeddings by processing text through multiple layers of attention mechanisms and neural networks. The final hidden state of the transformer model for each token is used as its embedding. These embeddings can capture contextual information from the surrounding text.
-
-**Code Snippet: Generating Embeddings using GPT-3 with OpenAI API**
-
-```python
-import openai
-
-# Set up the OpenAI API client
-openai.api_key = 'your-api-key'
-
-# Example text
-text = "Artificial intelligence is transforming the world."
-
-# Generate embeddings
-response = openai.Embedding.create(
-    input=text,
-    model="text-embedding-ada-002"
-)
-
-# Get the embedding vector
-embedding = response['data'][0]['embedding']
-print(embedding)
-```
-
-### Topic 2: Dimensions
-
-**Q1: What are dimensions in the context of embeddings?**
-
-**A1:**
-Dimensions refer to the number of values in the vector that represents an embedding. For example, a 300-dimensional embedding would be a vector of 300 real numbers. The choice of dimensionality can affect the performance and memory usage of machine learning models.
-
-**Q2: How does dimensionality affect the performance of embeddings?**
-
-**A2:**
-Higher dimensionality can capture more information and nuances of the text but also requires more computational resources and can lead to overfitting if the data is not sufficient. Lower dimensionality is computationally cheaper and can reduce overfitting but might not capture all the semantic details.
-
-### Topic 3: Tokens
-
-**Q1: What is a token in the context of natural language processing?**
-
-**A1:**
-A token is a single unit of text, such as a word, subword, or character. Tokenization is the process of splitting text into these tokens, which can then be processed by machine learning models. Different tokenization strategies include word-level, character-level, and subword-level tokenization.
-
-**Q2: How does tokenization impact the performance of language models?**
-
-**A2:**
-Tokenization impacts the granularity of the text representation. Word-level tokenization is straightforward but can struggle with rare words or misspellings. Subword tokenization (used in models like BERT and GPT-3) balances between character-level and word-level, handling rare words and morphological variations better.
-
-**Code Snippet: Tokenizing Text using Huggingface Transformers**
-
-```python
-from transformers import GPT2Tokenizer
-
-# Load the GPT-2 tokenizer
-tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-
-# Example text
-text = "Tokenization is crucial for NLP tasks."
-
-# Tokenize the text
-tokens = tokenizer.encode(text)
-print(tokens)
-
-# Decode tokens back to text
-decoded_text = tokenizer.decode(tokens)
-print(decoded_text)
-```
-
-### Topic 4: Text-to-Speech (TTS)
-
-**Q1: What is Text-to-Speech (TTS) technology?**
-
-**A1:**
-Text-to-Speech (TTS) technology converts written text into spoken words using computational linguistics and digital signal processing. It is used in applications like virtual assistants, audiobooks, and accessibility tools.
-
-**Q2: How does a TTS system work?**
-
-**A2:**
-A TTS system typically consists of two main components: text analysis (or front-end) and speech synthesis (or back-end). The text analysis component processes the input text, including tokenization, normalization, and linguistic analysis. The speech synthesis component then generates the audio waveform from the processed text.
-
-**Code Snippet: Using Google Text-to-Speech (gTTS) in Python**
-
-```python
-from gtts import gTTS
-import os
-
-# Example text
-text = "Hello, how are you?"
-
-# Create TTS object
-tts = gTTS(text=text, lang='en')
-
-# Save the audio file
-tts.save("output.mp3")
-
-# Play the audio file
-os.system("mpg321 output.mp3")
-```
-
-### Topic 5: Speech-to-Text (STT)
-
-**Q1: What is Speech-to-Text (STT) technology?**
-
-**A1:**
-Speech-to-Text (STT) technology converts spoken language into written text using techniques from signal processing and machine learning. It is used in applications like voice search, transcription services, and virtual assistants.
-
-**Q2: How does an STT system work?**
-
-**A2:**
-An STT system processes audio input, extracts features such as phonemes, and uses a language model to map these features to text. Modern STT systems often use deep learning models like recurrent neural networks (RNNs) or transformers to improve accuracy.
-
-**Code Snippet: Using Google Speech Recognition in Python**
-
-```python
-import speech_recognition as sr
-
-# Initialize recognizer
-recognizer = sr.Recognizer()
-
-# Load audio file
-audio_file = sr.AudioFile('path_to_audio.wav')
-
-# Recognize speech
-with audio_file as source:
-    audio_data = recognizer.record(source)
-    text = recognizer.recognize_google(audio_data)
-
-print(text)
-```
-
-### Topic 6: Text-to-Image
-
-**Q1: What is Text-to-Image generation?**
-
-**A1:**
-Text-to-Image generation involves creating images based on textual descriptions using machine learning models. This technology is used in creative applications, design, and content creation.
-
-**Q2: Which models are commonly used for Text-to-Image generation?**
-
-**A2:**
-Generative Adversarial Networks (GANs) and transformer-based models like DALL-E are commonly used for Text-to-Image generation. These models learn to generate realistic images from textual descriptions.
-
-**Code Snippet: Using DALL-E for Text-to-Image Generation**
+This involves generating text based on input text. We'll use OpenAI's GPT model for this example.
 
 ```python
 import openai
 
-# Set up the OpenAI API client
 openai.api_key = 'your-api-key'
 
-# Example text description
-description = "A futuristic cityscape at sunset"
+def text_to_text(prompt):
+    response = openai.Completion.create(
+        engine="text-davinci-002",
+        prompt=prompt,
+        max_tokens=100
+    )
+    return response.choices[0].text.strip()
 
-# Generate image
-response = openai.Image.create(
-    prompt=description,
-    model="dall-e-2",
-    size="1024x1024"
-)
-
-# Get the image URL
-image_url = response['data'][0]['url']
-print(image_url)
+prompt = "Translate the following English text to French: 'Hello, how are you?'"
+result = text_to_text(prompt)
+print(result)
 ```
 
-### Topic 7: Text-to-Video
+2. Text-to-Speech
 
-**Q1: What is Text-to-Video generation?**
-
-**A1:**
-Text-to-Video generation involves creating videos based on textual descriptions using machine learning models. This technology is still in the experimental phase but shows promise for applications in entertainment, advertising, and content creation.
-
-**Q2: How does Text-to-Video generation work?**
-
-**A2:**
-Text-to-Video generation typically extends Text-to-Image models by adding temporal coherence between frames. Models like Video GPT or variants of GANs can generate sequences of images that form a video, guided by the textual input.
-
-**Code Snippet: Placeholder (due to complexity and current state of technology)**
+For this, we'll use Azure's Text-to-Speech service.
 
 ```python
-# Placeholder for future Text-to-Video generation code
-print("Text-to-Video generation is a complex task currently in experimental stages.")
+import azure.cognitiveservices.speech as speechsdk
+
+def text_to_speech(text):
+    speech_config = speechsdk.SpeechConfig(subscription="your-subscription-key", region="your-region")
+    speech_config.speech_synthesis_voice_name = "en-US-AriaNeural"
+
+    speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)
+    result = speech_synthesizer.speak_text_async(text).get()
+
+    if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
+        print("Speech synthesized for text [{}]".format(text))
+    elif result.reason == speechsdk.ResultReason.Canceled:
+        print("Speech synthesis canceled")
+
+text_to_speech("Hello, how are you?")
 ```
 
-### Topic 8: Image Classification
+3. Speech-to-Text
 
-**Q1: What is Image Classification?**
-
-**A1:**
-Image Classification is the task of assigning a label to an image based on its content using machine learning models. It is widely used in applications like object recognition, medical imaging, and automated tagging.
-
-**Q2: Which models are commonly used for Image Classification?**
-
-**A2:**
-Convolutional Neural Networks (CNNs) are commonly used for Image Classification due to their ability to capture spatial hierarchies in images. Popular architectures include VGG, ResNet, and Inception.
-
-**Code Snippet: Image Classification using a Pre-trained ResNet Model**
+We'll use OpenAI's Whisper model for this task.
 
 ```python
-from torchvision import models, transforms
-from PIL import Image
-import torch
+import openai
 
-# Load pre-trained ResNet model
-model = models.resnet50(pretrained=True)
-model.eval()
+openai.api_key = 'your-api-key'
 
-# Transform input image
-preprocess = transforms.Compose([
-    transforms.Resize(256),
-    transforms.CenterCrop(224),
-    transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-])
+def speech_to_text(audio_file):
+    with open(audio_file, "rb") as file:
+        transcript = openai.Audio.transcribe("whisper-1", file)
+    return transcript['text']
 
-# Load and preprocess image
-img = Image.open('path_to_image.jpg')
-img_t = preprocess(img)
-batch_t = torch.unsqueeze(img_t, 0)
-
-# Classify image
-with torch.no_grad():
-    out = model(batch_t)
-
-# Get top-5 predictions
-_, indices = torch.topk(out, 5)
-percentage = torch.nn.functional.softmax(out, dim=1)[0] * 100
-labels = {idx: label for idx, label in enumerate(open('imagenet_classes.txt').read().splitlines())}
-for idx in indices[0]:
-    print(labels[idx.item()], percentage[idx].item())
+audio_file = "path/to/your/audio/file.mp3"
+result = speech_to_text(audio_file)
+print(result)
 ```
 
-### Topic 9: Text Summarization
+4. Text-to-Image
 
-**Q1: What is Text Summarization?**
+For this, we'll use OpenAI's DALL-E model.
 
-**A1:**
-Text Summarization is the process of creating a concise and coherent summary of a longer text document using machine learning models. It can be extractive (selecting important sentences) or abstractive (generating new sentences to summarize the text). This technology is used in applications like news aggregation, document summarization, and content creation.
+```python
+import openai
 
-**Q2: What are the main approaches to Text Summarization?**
+openai.api_key = 'your-api-key'
 
-**A2:**
-There are two main approaches to Text Summarization:
-1. **Extractive Summarization:** This method selects important sentences or phrases directly from the source text. Algorithms like TextRank or deep learning models can be used for this purpose.
-2. **Abstractive Summarization:** This method generates new sentences to summarize the text, often using sequence-to-sequence models with attention mechanisms or transformer models like BART and T5.
+def text_to_image(prompt):
+    response = openai.Image.create(
+        prompt=prompt,
+        n=1,
+        size="1024x1024"
+    )
+    image_url = response['data'][0]['url']
+    return image_url
 
-**Code Snippet: Using Huggingface Transformers for Text Summarization**
+prompt = "A cute baby penguin wearing a top hat"
+image_url = text_to_image(prompt)
+print(f"Generated image URL: {image_url}")
+```
+
+5. Text-to-Video
+
+OpenAI doesn't have a direct text-to-video API, but we can use other services like Runway ML for this task.
+
+```python
+import runway
+
+runway.api_key = "your-runway-api-key"
+
+def text_to_video(prompt):
+    model = runway.Model("stable-diffusion-v1-5")
+    output = model.generate(
+        prompt=prompt,
+        num_frames=30,
+        fps=30,
+        guidance_scale=7.5,
+        num_inference_steps=50
+    )
+    output.save("output_video.mp4")
+
+prompt = "A spaceship launching from Earth into a starry sky"
+text_to_video(prompt)
+```
+
+6. Text-to-Avatar
+
+For this, we can use the Ready Player Me API, which creates 3D avatars based on text descriptions.
+
+```python
+import requests
+import json
+
+def text_to_avatar(description):
+    url = "https://api.readyplayer.me/v1/avatars"
+    
+    payload = json.dumps({
+        "description": description,
+        "style": "realistic"
+    })
+    
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer your-api-key'
+    }
+    
+    response = requests.post(url, headers=headers, data=payload)
+    
+    if response.status_code == 200:
+        avatar_url = response.json()['avatar']
+        return avatar_url
+    else:
+        return f"Error: {response.status_code}, {response.text}"
+
+description = "A tall man with short brown hair and blue eyes, wearing a red t-shirt"
+avatar_url = text_to_avatar(description)
+print(f"Generated avatar URL: {avatar_url}")
+```
+
+1. Microsoft Text to Speech:
+Microsoft's Text to Speech (TTS) is part of Azure Cognitive Services. It converts text into natural-sounding speech using advanced neural network models. It supports multiple languages and voices, and can be customized for specific use cases.
+
+Example using Python:
+
+```python
+import azure.cognitiveservices.speech as speechsdk
+
+speech_config = speechsdk.SpeechConfig(subscription="your-key", region="your-region")
+speech_config.speech_synthesis_voice_name = "en-US-JennyNeural"
+
+speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)
+result = speech_synthesizer.speak_text_async("Hello, world!").get()
+```
+
+2. D-ID Speech to Avatar:
+D-ID is a company that provides AI-powered video generation. Their Speech to Avatar technology can create realistic talking head videos from audio input. This can be used for creating virtual presenters, digital humans, or animated avatars.
+
+Example using their API (pseudo-code):
+
+```python
+import requests
+
+url = "https://api.d-id.com/talks"
+payload = {
+    "script": {
+        "type": "text",
+        "input": "Hello, I'm a digital avatar created by D-ID."
+    },
+    "source_url": "https://example.com/avatar_image.jpg"
+}
+headers = {
+    "Authorization": "Basic your_api_key",
+    "Content-Type": "application/json"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+```
+
+3. VASA-1:
+VASA-1 (Visual Affective Speech Animation) is an AI model developed by ByteDance that generates realistic talking face videos from audio input. It can create highly expressive and emotionally responsive animations.
+
+As of my last update, there wasn't a public API for VASA-1, but researchers could potentially implement it using the published paper and code if available.
+
+4. Emote-Portrait-Alive:
+Emote-Portrait-Alive is a technique for creating animated portraits from still images. It uses AI to add realistic facial expressions and movements to static portraits.
+
+This is typically implemented as part of larger AI image processing pipelines, often using frameworks like PyTorch or TensorFlow.
+
+5. Langchain:
+Langchain is a framework for developing applications powered by language models. It provides tools for combining LLMs with other sources of computation or knowledge.
+
+Example:
+
+```python
+from langchain import OpenAI, ConversationChain
+
+llm = OpenAI(temperature=0)
+conversation = ConversationChain(llm=llm, verbose=True)
+
+response = conversation.predict(input="Hi there!")
+print(response)
+```
+
+6. Hugging Face Transformers:
+Hugging Face Transformers is a popular library that provides pre-trained models for various NLP tasks. It supports models like BERT, GPT, and T5.
+
+Example:
 
 ```python
 from transformers import pipeline
 
-# Load summarization pipeline
-summarizer = pipeline("summarization")
-
-# Example text
-text = """
-Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and animals. Leading AI textbooks define the field as the study of "intelligent agents": any device that perceives its environment and takes actions that maximize its chance of successfully achieving its goals. Colloquially, the term "artificial intelligence" is often used to describe machines (or computers) that mimic cognitive functions that humans associate with the human mind, such as learning and problem-solving.
-"""
-
-# Generate summary
-summary = summarizer(text, max_length=50, min_length=25, do_sample=False)
-print(summary[0]['summary_text'])
+classifier = pipeline("sentiment-analysis")
+result = classifier("I love this product!")
+print(result)
 ```
 
-### Additional Topics and Explanations
+7. spaCy:
+spaCy is an open-source library for advanced Natural Language Processing in Python. It's designed for production use and helps in tasks like named entity recognition, part-of-speech tagging, and dependency parsing.
 
-#### 1. Langchain
-Langchain is a framework for building applications that use language models. It provides tools for chaining together different components, such as transformers, tokenizers, and text generation models, to create complex NLP applications.
+Example:
 
-**Q1: How does Langchain facilitate building NLP applications?**
+```python
+import spacy
 
-**A1:**
-Langchain allows developers to modularize and chain together different components of NLP workflows, making it easier to build, test, and deploy complex applications. It supports various models and tokenizers and can be integrated with other libraries and frameworks.
+nlp = spacy.load("en_core_web_sm")
+doc = nlp("Apple is looking at buying U.K. startup for $1 billion")
 
-#### 2. Langgraph
-Langgraph is a framework designed to handle graph-based representations of language models. It allows the integration of graph databases and graph algorithms with language models to enable more advanced NLP applications.
+for ent in doc.ents:
+    print(ent.text, ent.label_)
+```
 
-**Q1: What are the benefits of using Langgraph in NLP applications?**
+8. TensorFlow:
+TensorFlow is an open-source machine learning framework developed by Google. It's used for both research and production at Google and many other companies.
 
-**A1:**
-Langgraph leverages the strengths of graph databases (like Neo4j) to provide efficient querying and relationships management, enabling more sophisticated and scalable NLP applications. It can handle large-scale data and complex relationships between entities, which are common in natural language.
+Example:
 
-#### 3. SQL Expert for SQL
-SQL Expert refers to advanced skills and tools for handling SQL queries and databases. It includes knowledge of optimizing queries, database design, and integrating SQL with machine learning workflows.
+```python
+import tensorflow as tf
 
-**Q1: How can SQL be used in conjunction with NLP models?**
+mnist = tf.keras.datasets.mnist
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0
 
-**A1:**
-SQL can be used to manage and query large datasets that are used for training and evaluating NLP models. It can also be integrated into workflows where NLP models generate insights from text data stored in databases, allowing for efficient data retrieval and processing.
+model = tf.keras.models.Sequential([
+  tf.keras.layers.Flatten(input_shape=(28, 28)),
+  tf.keras.layers.Dense(128, activation='relu'),
+  tf.keras.layers.Dropout(0.2),
+  tf.keras.layers.Dense(10)
+])
+```
 
-By covering these topics and their explanations along with code snippets, you will be well-prepared for generative AI interviews. If you need further details or additional topics, feel free to ask!
+9. PyTorch:
+PyTorch is an open-source machine learning library developed by Facebook's AI Research lab. It's known for its ease of use in dynamic computational graphs.
+
+Example:
+
+```python
+import torch
+import torch.nn as nn
+
+class SimpleNet(nn.Module):
+    def __init__(self):
+        super(SimpleNet, self).__init__()
+        self.fc = nn.Linear(10, 5)
+
+    def forward(self, x):
+        return self.fc(x)
+
+model = SimpleNet()
+input = torch.randn(3, 10)
+output = model(input)
+print(output)
+```
+
+10. Keras:
+Keras is a high-level neural networks API, written in Python and capable of running on top of TensorFlow, CNTK, or Theano. It's known for its user-friendliness and modularity.
+
+Example:
+
+```python
+from tensorflow import keras
+
+model = keras.Sequential([
+    keras.layers.Dense(64, activation='relu', input_shape=(32,)),
+    keras.layers.Dense(64, activation='relu'),
+    keras.layers.Dense(10, activation='softmax')
+])
+
+model.compile(optimizer='adam',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
+```
+
+
+1. OpenAI Gym:
+OpenAI Gym is a toolkit for developing and comparing reinforcement learning algorithms. It provides a standard API for communication between learning algorithms and environments, as well as a standard set of environments to benchmark algorithm performance.
+
+Example:
+```python
+import gym
+
+env = gym.make('CartPole-v1')
+observation = env.reset()
+
+for _ in range(1000):
+    env.render()
+    action = env.action_space.sample()  # your agent here (this takes random actions)
+    observation, reward, done, info = env.step(action)
+    
+    if done:
+        observation = env.reset()
+
+env.close()
+```
+
+2. NVIDIA CUDA:
+CUDA (Compute Unified Device Architecture) is a parallel computing platform and programming model developed by NVIDIA for general computing on their GPUs. It allows developers to use GPU acceleration for various computational tasks.
+
+Example (using PyCUDA):
+```python
+import pycuda.autoinit
+import pycuda.driver as drv
+import numpy as np
+from pycuda.compiler import SourceModule
+
+mod = SourceModule("""
+__global__ void multiply_them(float *dest, float *a, float *b)
+{
+  const int i = threadIdx.x;
+  dest[i] = a[i] * b[i];
+}
+""")
+
+multiply_them = mod.get_function("multiply_them")
+
+a = np.random.randn(400).astype(np.float32)
+b = np.random.randn(400).astype(np.float32)
+
+dest = np.zeros_like(a)
+multiply_them(
+    drv.Out(dest), drv.In(a), drv.In(b),
+    block=(400,1,1), grid=(1,1))
+
+print(dest-a*b)
+```
+
+3. cuDNN:
+NVIDIA cuDNN (CUDA Deep Neural Network library) is a GPU-accelerated library of primitives for deep neural networks. It provides highly tuned implementations for standard routines such as forward and backward convolution, pooling, normalization, and activation layers.
+
+cuDNN is typically used as a backend for higher-level frameworks like TensorFlow or PyTorch, rather than being used directly.
+
+4. Dask:
+Dask is a flexible library for parallel computing in Python. It scales Python libraries like NumPy, Pandas, and Scikit-Learn to distributed environments and provides an advanced task scheduling system.
+
+Example:
+```python
+import dask.dataframe as dd
+
+# Read a large CSV file
+df = dd.read_csv('large_file.csv')
+
+# Perform operations
+result = df.groupby('column').mean().compute()
+```
+
+5. FAISS:
+FAISS (Facebook AI Similarity Search) is a library for efficient similarity search and clustering of dense vectors. It's particularly useful for tasks involving large-scale nearest neighbor search.
+
+Example:
+```python
+import faiss
+import numpy as np
+
+d = 64                           # dimension
+nb = 100000                      # database size
+nq = 10000                       # nb of queries
+np.random.seed(1234)             # make reproducible
+xb = np.random.random((nb, d)).astype('float32')
+xq = np.random.random((nq, d)).astype('float32')
+
+index = faiss.IndexFlatL2(d)   # build the index
+index.add(xb)                  # add vectors to the index
+k = 4                          # we want to see 4 nearest neighbors
+D, I = index.search(xq, k)     # actual search
+print(I[:5])                   # neighbors of the 5 first queries
+```
+
+6. AllenNLP:
+AllenNLP is an open-source NLP research library built on PyTorch. It provides high-level abstractions and APIs for developing deep learning models, particularly for tasks like machine comprehension, textual entailment, and more.
+
+Example:
+```python
+from allennlp.predictors.predictor import Predictor
+
+predictor = Predictor.from_path("https://storage.googleapis.com/allennlp-public-models/bert-base-srl-2020.03.24.tar.gz")
+prediction = predictor.predict(
+  sentence="Did Uriah honestly think he could beat the game in under three hours?"
+)
+print(prediction)
+```
+
+7. T5:
+T5 (Text-to-Text Transfer Transformer) is a transformer model developed by Google. It frames all NLP tasks as a "text-to-text" problem, where both inputs and outputs are always text strings.
+
+Example using Hugging Face Transformers:
+```python
+from transformers import T5Tokenizer, T5ForConditionalGeneration
+
+tokenizer = T5Tokenizer.from_pretrained("t5-small")
+model = T5ForConditionalGeneration.from_pretrained("t5-small")
+
+input_text = "translate English to German: The house is wonderful."
+input_ids = tokenizer(input_text, return_tensors="pt").input_ids
+
+outputs = model.generate(input_ids)
+print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+```
+
+8. Haystack:
+Haystack is an open-source framework for building search systems that work intelligently over large document collections. It's particularly useful for question answering and semantic search applications.
+
+Example:
+```python
+from haystack.nodes import EmbeddingRetriever
+from haystack.document_stores import InMemoryDocumentStore
+
+document_store = InMemoryDocumentStore(use_bm25=True)
+
+retriever = EmbeddingRetriever(
+    document_store=document_store,
+    embedding_model="sentence-transformers/multi-qa-mpnet-base-dot-v1"
+)
+
+# Assuming you have documents in the document_store
+documents = document_store.get_all_documents()
+document_store.update_embeddings(retriever)
+
+# Query
+query = "What is the capital of France?"
+retrieved_docs = retriever.retrieve(query)
+
+for doc in retrieved_docs:
+    print(doc.content)
+```
+
+
+1. AutoGen:
+
+AutoGen is a framework developed by Microsoft for building Large Language Model (LLM) applications using multiple agents. It allows for the creation of conversable AI agents that can interact with each other and with humans to solve tasks.
+
+Key features of AutoGen:
+- Multi-agent conversations
+- Human-AI interaction
+- Customizable agent roles and behaviors
+- Integration with various LLMs
+
+Here's a basic example of using AutoGen:
+
+```python
+from autogen import AssistantAgent, UserProxyAgent, config_list_from_json
+
+# Load LLM configuration
+config_list = config_list_from_json("OAI_CONFIG_LIST")
+
+# Create an assistant agent
+assistant = AssistantAgent(name="assistant", llm_config={"config_list": config_list})
+
+# Create a user proxy agent
+user_proxy = UserProxyAgent(name="user_proxy", code_execution_config={"work_dir": "coding"})
+
+# Start a conversation
+user_proxy.initiate_chat(assistant, message="How can I create a simple web server in Python?")
+```
+
+In this example, we create two agents: an assistant and a user proxy. The user proxy initiates a conversation with the assistant about creating a web server in Python. The agents can then engage in a back-and-forth conversation to solve the task.
+
+2. CrewAI:
+
+CrewAI is a framework for orchestrating role-playing, autonomous AI agents. It's designed to facilitate collaborative task completion by AI agents, each with its own specialized role.
+
+Key features of CrewAI:
+- Role-based agent creation
+- Task planning and execution
+- Inter-agent communication
+- Integration with various AI models
+
+Here's a basic example of using CrewAI:
+
+```python
+from crewai import Agent, Task, Crew
+from langchain.llms import OpenAI
+
+# Initialize the language model
+llm = OpenAI()
+
+# Create agents
+researcher = Agent(
+    role='Researcher',
+    goal='Uncover groundbreaking information',
+    backstory='You are an expert researcher with a keen eye for detail',
+    verbose=True,
+    llm=llm
+)
+
+writer = Agent(
+    role='Writer',
+    goal='Craft compelling content',
+    backstory='You are a skilled writer with a way with words',
+    verbose=True,
+    llm=llm
+)
+
+# Create tasks
+research_task = Task(
+    description='Research the latest advancements in AI',
+    agent=researcher
+)
+
+writing_task = Task(
+    description='Write an article about AI advancements',
+    agent=writer
+)
+
+# Create a crew
+crew = Crew(
+    agents=[researcher, writer],
+    tasks=[research_task, writing_task],
+    verbose=2
+)
+
+# Execute the crew's plan
+result = crew.kickoff()
+
+print(result)
+```
+
+In this example, we create two agents (a researcher and a writer) and assign them specific tasks. The Crew object orchestrates the execution of these tasks, allowing the agents to work together to research AI advancements and write an article about them.
+
+Both AutoGen and CrewAI represent a shift towards more complex, multi-agent AI systems that can tackle sophisticated tasks through collaboration and specialization. These frameworks allow developers to create AI systems that can break down complex problems, delegate subtasks to specialized agents, and synthesize results into coherent solutions.
+
+The key difference between the two is that AutoGen focuses more on facilitating conversations between agents (including human-in-the-loop scenarios), while CrewAI emphasizes role-playing and task planning for autonomous execution.
+
+
+1. Embeddings (Dimension, Tokens):
+
+Embeddings are dense vector representations of words, phrases, or entire documents. They capture semantic meaning in a way that machines can understand and process.
+
+- Dimension: The number of values in the vector. Higher dimensions can capture more nuanced relationships but require more computational resources.
+- Tokens: The basic units of text (often words or subwords) that are converted into embeddings.
+
+Example using sentence-transformers:
+
+```python
+from sentence_transformers import SentenceTransformer
+
+model = SentenceTransformer('all-MiniLM-L6-v2')
+sentences = ["This is an example sentence", "Each sentence is converted to a vector"]
+
+embeddings = model.encode(sentences)
+print(f"Embedding dimension: {embeddings.shape[1]}")
+print(f"Number of embeddings: {embeddings.shape[0]}")
+```
+
+2. Quantization of LLM model:
+
+Quantization is the process of reducing the precision of the model's weights, typically from 32-bit floating-point to lower bit representations (e.g., 8-bit integers). This reduces model size and increases inference speed, often with minimal impact on performance.
+
+Example using transformers:
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model_id = "gpt2"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(model_id, load_in_8bit=True)
+
+print(f"Model size: {model.get_memory_footprint() / 1e6:.2f} MB")
+```
+
+3. LoRA (Low-Rank Adaptation):
+
+LoRA is a technique for efficient fine-tuning of large language models. It adds small, trainable rank decomposition matrices to existing weights, allowing for adaptation with fewer parameters.
+
+Example using PEFT:
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import get_peft_model, LoraConfig, TaskType
+
+model_id = "gpt2"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(model_id)
+
+peft_config = LoraConfig(
+    task_type=TaskType.CAUSAL_LM, 
+    r=8, 
+    lora_alpha=32, 
+    lora_dropout=0.1
+)
+
+peft_model = get_peft_model(model, peft_config)
+print(f"Trainable params: {peft_model.print_trainable_parameters()}")
+```
+
+4. QLoRA (Quantized LoRA):
+
+QLoRA combines quantization and LoRA. It quantizes the base model to 4-bit precision and uses LoRA for fine-tuning, allowing for efficient adaptation of very large models on consumer hardware.
+
+Example (conceptual, as QLoRA often requires specific libraries):
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import get_peft_model, LoraConfig, TaskType
+# Assume we have a custom quantize_model function
+from custom_quantization import quantize_model
+
+model_id = "gpt2"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(model_id)
+
+# Quantize the model to 4-bit
+quantized_model = quantize_model(model, bits=4)
+
+peft_config = LoraConfig(task_type=TaskType.CAUSAL_LM, r=8, lora_alpha=32, lora_dropout=0.1)
+qlora_model = get_peft_model(quantized_model, peft_config)
+```
+
+Other popular terms in Generative AI:
+
+5. Prompt Engineering:
+The practice of designing input prompts to elicit desired outputs from language models.
+
+Example:
+```python
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+model = GPT2LMHeadModel.from_pretrained("gpt2")
+tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+
+prompt = "Translate the following English text to French: 'Hello, how are you?'"
+input_ids = tokenizer.encode(prompt, return_tensors="pt")
+output = model.generate(input_ids, max_length=50)
+
+print(tokenizer.decode(output[0], skip_special_tokens=True))
+```
+
+6. Fine-tuning:
+The process of further training a pre-trained model on a specific dataset to adapt it to a particular task or domain.
+
+7. Zero-shot Learning:
+The ability of a model to perform tasks it wasn't explicitly trained on, based on its general knowledge.
+
+8. Few-shot Learning:
+The ability of a model to learn a new task from only a few examples.
+
+9. Transformer Architecture:
+The foundational architecture for many modern language models, using self-attention mechanisms to process input sequences.
+
+10. Attention Mechanism:
+A technique that allows models to focus on different parts of the input when producing output, crucial for handling long-range dependencies in text.
+
+
+**Transformers:**
+https://blog.gopenai.com/how-transformers-and-large-language-models-llms-work-3f20bb41c1ff
+![image](https://github.com/khursheed33/interviews/assets/52867369/717e05a0-0b96-4b91-8a9f-8d3bfda4a81c)
+
+
