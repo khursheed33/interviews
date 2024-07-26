@@ -191,11 +191,7 @@ services:
 ### Docker Command to Run Images with Port and Volume 
 
 ```bash
-docker run -d \
-  -p 8080:80 \
-  -v /path/on/host:/path/in/container \
-  --name my_container \
-  my_image
+docker run -d   -p 8080:80 -v /path/on/host:/path/in/container --name my_container my_image
 ```
 
 ### Breakdown of the Command
