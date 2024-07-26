@@ -186,7 +186,27 @@ services:
 ```
 - Basic Docker Compose file example.
 
-### Docker Commands
+## Docker Commands
+
+### Docker Command to Run Images with Port and Volume 
+
+```bash
+docker run -d \
+  -p 8080:80 \
+  -v /path/on/host:/path/in/container \
+  --name my_container \
+  my_image
+```
+
+### Breakdown of the Command
+
+- `-d`: Run the container in detached mode (in the background).
+- `-p 8080:80`: Map port 8080 on the host to port 80 in the container. This means that requests to `localhost:8080` on your host will be forwarded to port 80 in the container.
+- `-v /path/on/host:/path/in/container`: Mount a volume from the host to the container. The directory `/path/on/host` on your host machine will be accessible inside the container at `/path/in/container`.
+- `--name my_container`: Assign a name (`my_container`) to the container.
+- `my_image`: The name of the Docker image to use.
+
+You can adjust the port numbers, volume paths, container name, and image name according to your needs.
 
 #### Build
 ```bash
