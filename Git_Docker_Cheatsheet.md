@@ -244,4 +244,48 @@ docker-compose down
 ```
 - Start and stop services defined in a Docker Compose file.
 
+### Steps to Update and Rebuild Your Docker Image with Docker Compose:
+
+1. **Make Changes to Your Code:**
+   Ensure you've saved all your changes to your code.
+
+2. **Use Docker Compose to Rebuild and Restart:**
+   Run the following command in the directory containing your `docker-compose.yml` file:
+   ```sh
+   docker-compose up --build
+   ```
+
+   This command tells Docker Compose to:
+   - **Rebuild** the images for the services defined in your `docker-compose.yml` file.
+   - **Restart** the containers with the updated images.
+
+### Additional Considerations:
+
+- **Remove Orphan Containers:**
+  If you have made changes that affect the service definitions (e.g., added or removed services), you might want to remove any orphaned containers:
+  ```sh
+  docker-compose up --build --remove-orphans
+  ```
+
+- **Rebuilding Only Specific Services:**
+  If you only want to rebuild specific services, you can specify them:
+  ```sh
+  docker-compose up --build service_name
+  ```
+
+- **Stopping and Removing Containers:**
+  If you want to ensure a clean state, you can stop and remove containers before rebuilding:
+  ```sh
+  docker-compose down
+  docker-compose up --build
+  ```
+
+### Example Docker Compose Workflow:
+
+1. **Edit your code.**
+
+2. **Rebuild and restart with Docker Compose:**
+   ```sh
+   docker-compose up --build
+   ```
 ---
