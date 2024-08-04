@@ -82,31 +82,72 @@ To add all files:
 git add .
 ```
 
-### Committing Changes
-
-To commit your changes with a message, use:
-
+### Staging Changes
 ```bash
-git commit -m "Your commit message"
+git add <file_or_directory>
+git add .
 ```
+- Stage changes for the next commit.
 
-### Viewing the Status
+### Committing
+```bash
+git commit -m "commit message"
+```
+- Commit staged changes with a message.
 
-To see the status of your files in the working directory and staging area, use:
-
+### Viewing Status
 ```bash
 git status
 ```
+- Show the working tree status.
 
-### Viewing the Log
-
-To view the commit history, use:
-
+### Viewing History
 ```bash
 git log
 ```
+- Show commit logs.
 
-## Working with Remote Repositories
+### Branching
+```bash
+git branch
+git branch <branch_name>
+git checkout <branch_name>
+git checkout -b <new_branch_name>
+```
+- List branches, create a branch, switch to a branch, and create/switch to a new branch.
+
+### Merging
+```bash
+git merge <branch_name>
+```
+- Merge changes from another branch into the current branch.
+
+### Pushing to Remote
+```bash
+git remote add origin <remote_repository_url>
+git push -u origin <branch_name>
+git push
+```
+- Add a remote repository, push changes to it, and push subsequent changes.
+
+### Pulling from Remote
+```bash
+git pull
+```
+- Fetch and integrate changes from the remote repository.
+
+### Stashing Changes
+```bash
+git stash
+git stash pop
+```
+- Save changes temporarily and retrieve them later.
+
+### Resetting Changes
+```bash
+git reset --hard <commit_hash>
+```
+- Reset the working directory to a specific commit.
 
 ### Adding a Remote
 
