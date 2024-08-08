@@ -181,4 +181,68 @@ Participating in Scrum ceremonies:
 4. **Problem-Solving**: Demonstrate your problem-solving skills by discussing challenges you faced and how you overcame them.
 5. **Teamwork and Communication**: Highlight your experience working in teams and your communication skills.
 
-By understanding and practicing these concepts, you will be well-prepared for your interview. Good luck!
+
+Based on the job description provided in the document, here are some likely interview questions and topics that the interviewer might focus on:
+
+### Technical Skills and Experience
+
+1. **React and Frontend Development**:
+   - How do you manage state in a React application using MobX?
+   - Can you describe a complex React component you have built?
+   - How do you ensure the performance and responsiveness of a React application?
+
+2. **Python and FastAPI for Backend Development**:
+   - What are the key features of FastAPI, and why do you prefer it over other frameworks?
+   - Can you walk me through a project where you used FastAPI for the backend?
+   - How do you handle authentication and authorization in a FastAPI application?
+
+3. **Authentication Mechanisms**:
+   - Explain the differences between OpenID and OAuth.
+   - How have you implemented secure authentication mechanisms in your previous projects?
+
+4. **Azure Cloud Services**:
+   - What is Azure Cloud CDN, and how does it benefit web applications?
+   - How have you used Azure Service Bus for messaging in your projects?
+   - Describe your experience with Azure Monitor, Prometheus, and Grafana for logging and monitoring.
+
+5. **CI/CD Pipelines**:
+   - How do you set up and manage CI/CD pipelines using GitHub Actions?
+   - Can you describe a specific CI/CD pipeline you created and the benefits it provided?
+
+### Soft Skills and Collaboration
+
+6. **Agile/Scrum Development Environment**:
+   - How do you typically participate in Agile/Scrum ceremonies (sprint planning, daily stand-ups, sprint reviews, retrospectives)?
+   - Describe a time when you had to work closely with a cross-functional team to ship a new feature.
+
+7. **Problem-Solving and Debugging**:
+   - Give an example of a challenging bug you encountered and how you resolved it.
+   - How do you approach performance bottlenecks in a web application?
+
+8. **Code Quality and Reviews**:
+   - How do you ensure code quality in your projects?
+   - What is your approach to participating in and conducting code reviews?
+
+### Candidate Profile and Experience
+
+9. **Education and Background**:
+   - What is your educational background, and how does it relate to this position?
+   - Can you describe your previous role as a Fullstack Developer or a similar position?
+
+10. **Project Examples and Contributions**:
+   - Describe a project where you played a key role in both frontend and backend development.
+   - How have you contributed to improving the performance and quality of applications in your previous roles?
+
+### Specific Tools and Technologies
+
+11. **State Management with MobX**:
+   - Why do you prefer MobX over other state management libraries like Redux?
+   - Can you provide an example of how you used MobX to solve a complex state management issue?
+
+12. **Logging and Monitoring**:
+   - How do you set up logging and monitoring for a web application?
+   - Describe a situation where logging and monitoring helped you identify and resolve a critical issue.
+
+13. **Automating Deployments**:
+   - How have you automated deployment processes in your previous projects?
+   - What tools and practices do you use to ensure reliable and efficient deployments?
