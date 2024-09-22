@@ -314,7 +314,1473 @@
 ---
 
 # Answers ---------------------------------------
+**L1 (Beginner)**
 
+### 1. **Data Types:**
+   - **What are the basic data types in Python?**
+     - Integer (`int`), Float (`float`), String (`str`), Boolean (`bool`), List, Tuple, Dictionary, Set.
+     - Example: 
+       ```python
+       x = 10        # int
+       y = 3.14      # float
+       name = "John" # str
+       is_active = True # bool
+       ```
+   - **How can you differentiate between mutable and immutable types?**
+     - **Mutable**: Can be changed after creation (e.g., lists).
+     - **Immutable**: Cannot be changed after creation (e.g., strings, tuples).
+     - Example:
+       ```python
+       a = [1, 2, 3] # List (mutable)
+       a[0] = 5      # Changing list element
+       name = "John" # String (immutable)
+       ```
+
+### 2. **Variables:**
+   - **How do you declare and assign a variable in Python?**
+     - Just write the variable name and assign a value.
+     - Example:
+       ```python
+       age = 25
+       ```
+   - **Can a variable change its type in Python?**
+     - Yes, Python variables can change types.
+     - Example:
+       ```python
+       x = 10     # int
+       x = "Ten"  # Now it's a str
+       ```
+
+### 3. **Control Flow (if, elif, else):**
+   - **How does the `if` statement work in Python?**
+     - It checks a condition and executes code if the condition is `True`.
+     - Example:
+       ```python
+       if x > 10:
+           print("Greater than 10")
+       ```
+   - **What is the difference between `if`, `elif`, and `else`?**
+     - `if` checks the first condition, `elif` checks another if the first is false, `else` runs if none are true.
+     - Example:
+       ```python
+       if x > 10:
+           print("Greater")
+       elif x == 10:
+           print("Equal")
+       else:
+           print("Smaller")
+       ```
+
+### 4. **Loops (for, while):**
+   - **What is the syntax of a `for` loop in Python?**
+     - Loops over a sequence (like a list).
+     - Example:
+       ```python
+       for i in range(5):
+           print(i)
+       ```
+   - **How does the `while` loop differ from a `for` loop?**
+     - `while` runs until a condition becomes `False`.
+     - Example:
+       ```python
+       i = 0
+       while i < 5:
+           print(i)
+           i += 1
+       ```
+
+### 5. **Functions:**
+   - **How do you define a function in Python?**
+     - Use `def` to define a function.
+     - Example:
+       ```python
+       def greet(name):
+           print(f"Hello, {name}")
+       ```
+   - **What is the purpose of a `return` statement?**
+     - `return` sends back a value from a function.
+     - Example:
+       ```python
+       def add(a, b):
+           return a + b
+       ```
+
+### 6. **Input and Output:**
+   - **How do you take user input in Python?**
+     - Use `input()` to take user input as a string.
+     - Example:
+       ```python
+       name = input("Enter your name: ")
+       ```
+   - **How can you print multiple variables in a single line?**
+     - Use commas in the `print()` function.
+     - Example:
+       ```python
+       print("Name:", name, "Age:", age)
+       ```
+
+### 7. **String Operations:**
+   - **How do you concatenate strings in Python?**
+     - Use `+` to join strings.
+     - Example:
+       ```python
+       full_name = "John" + " " + "Doe"
+       ```
+   - **How do you access a character in a string by index?**
+     - Use square brackets `[]`.
+     - Example:
+       ```python
+       name = "John"
+       first_letter = name[0]  # J
+       ```
+
+### 8. **Lists:**
+   - **How do you create a list in Python?**
+     - Use square brackets `[]`.
+     - Example:
+       ```python
+       numbers = [1, 2, 3, 4]
+       ```
+   - **What are common list methods like `append()`, `remove()`, and `insert()`?**
+     - `append()`: Adds an element to the end.
+     - `remove()`: Removes an element.
+     - `insert()`: Inserts an element at a specific position.
+     - Example:
+       ```python
+       numbers.append(5)
+       numbers.remove(2)
+       numbers.insert(1, 10)
+       ```
+
+### 9. **Tuples:**
+   - **How do you define a tuple?**
+     - Use parentheses `()`.
+     - Example:
+       ```python
+       coords = (10, 20)
+       ```
+   - **How do tuples differ from lists?**
+     - Tuples are **immutable** (cannot be changed), while lists are mutable.
+     - Example:
+       ```python
+       coords[0] = 30  # Error: Cannot modify tuple
+       ```
+
+### 10. **Dictionaries:**
+   - **What is a dictionary in Python?**
+     - A collection of key-value pairs.
+     - Example:
+       ```python
+       person = {"name": "John", "age": 25}
+       ```
+   - **How do you add a new key-value pair to a dictionary?**
+     - Example:
+       ```python
+       person["city"] = "New York"
+       ```
+
+### 11. **Sets:**
+   - **What is a set in Python?**
+     - A collection of unique elements.
+     - Example:
+       ```python
+       numbers = {1, 2, 3, 4, 4}  # {1, 2, 3, 4}
+       ```
+   - **How do you remove duplicates from a list using sets?**
+     - Convert the list to a set.
+     - Example:
+       ```python
+       numbers = [1, 2, 2, 3]
+       unique_numbers = list(set(numbers))
+       ```
+
+### 12. **Basic Exception Handling:**
+   - **How do you handle exceptions using `try-except` blocks?**
+     - `try` runs the code, `except` handles errors.
+     - Example:
+       ```python
+       try:
+           x = 10 / 0
+       except ZeroDivisionError:
+           print("Cannot divide by zero")
+       ```
+
+### 13. **File Handling:**
+   - **How do you open a file in Python?**
+     - Use the `open()` function.
+     - Example:
+       ```python
+       file = open("data.txt", "r")
+       ```
+   - **What is the difference between read, write, and append modes?**
+     - `r`: Read, `w`: Write (overwrite), `a`: Append.
+     - Example:
+       ```python
+       file = open("data.txt", "w")  # Overwrites
+       ```
+
+### 14. **Basic Modules (math, random, os):**
+   - **How do you import a module in Python?**
+     - Use the `import` statement.
+     - Example:
+       ```python
+       import math
+       print(math.sqrt(16))
+       ```
+   - **What are some common functions from the `math` and `random` modules?**
+     - `math`: `sqrt()`, `pow()`.
+     - `random`: `random()`, `choice()`.
+     - Example:
+       ```python
+       import random
+       print(random.choice([1, 2, 3]))
+       ```
+
+### 15. **Comments and Docstrings:**
+   - **How do you add comments in Python?**
+     - Use the `#` symbol for single-line comments.
+     - Example:
+       ```python
+       # This is a comment
+       ```
+   - **What is the purpose of docstrings in functions?**
+     - Docstrings are used to document what a function does.
+     - Example:
+       ```python
+       def greet():
+           """This function greets the user."""
+           print("Hello")
+       ```
+
+**L2 (Intermediate)**
+
+### 1. **List Comprehensions:**
+   - **How do you create a list comprehension?**
+     - List comprehensions allow for concise creation of lists by iterating and applying a condition or transformation.
+     - Example:
+       ```python
+       numbers = [x for x in range(5)]  # [0, 1, 2, 3, 4]
+       even_numbers = [x for x in range(10) if x % 2 == 0]  # [0, 2, 4, 6, 8]
+       ```
+   - **How do list comprehensions improve code efficiency?**
+     - They are faster and more concise than regular `for` loops for creating lists, as they are optimized internally in Python.
+
+### 2. **Lambda Functions:**
+   - **What are lambda functions in Python?**
+     - A **lambda function** is an anonymous, short function defined using the `lambda` keyword.
+     - Example:
+       ```python
+       add = lambda x, y: x + y
+       print(add(2, 3))  # 5
+       ```
+   - **How do lambda functions differ from regular functions?**
+     - Lambda functions are single-line, anonymous functions, typically used for short, simple operations. Regular functions are defined with `def` and can have multiple statements.
+
+### 3. **Map, Filter, Reduce:**
+   - **How does the `map()` function work?**
+     - `map()` applies a function to each item in a sequence.
+     - Example:
+       ```python
+       numbers = [1, 2, 3]
+       squared = list(map(lambda x: x ** 2, numbers))  # [1, 4, 9]
+       ```
+   - **How do `filter()` and `reduce()` work, and when would you use them?**
+     - `filter()` filters items based on a condition, and `reduce()` (from `functools`) reduces a list to a single value.
+     - Example:
+       ```python
+       evens = list(filter(lambda x: x % 2 == 0, range(10)))  # [0, 2, 4, 6, 8]
+       from functools import reduce
+       product = reduce(lambda x, y: x * y, [1, 2, 3, 4])  # 24
+       ```
+
+### 4. **Decorators:**
+   - **What are decorators in Python?**
+     - A **decorator** is a function that wraps another function to modify or extend its behavior.
+   - **How do you create a simple decorator?**
+     - Example:
+       ```python
+       def decorator(func):
+           def wrapper():
+               print("Before the function")
+               func()
+               print("After the function")
+           return wrapper
+
+       @decorator
+       def say_hello():
+           print("Hello!")
+       
+       say_hello()
+       # Output:
+       # Before the function
+       # Hello!
+       # After the function
+       ```
+
+### 5. **Generators:**
+   - **What is a generator function in Python?**
+     - A generator is a function that yields values one at a time, using the `yield` keyword.
+     - Example:
+       ```python
+       def count_up_to(n):
+           count = 1
+           while count <= n:
+               yield count
+               count += 1
+
+       gen = count_up_to(5)
+       print(list(gen))  # [1, 2, 3, 4, 5]
+       ```
+   - **How does a generator differ from a normal function?**
+     - Generators yield values lazily (one at a time), which makes them memory efficient for large datasets.
+
+### 6. **List vs Tuple Performance:**
+   - **Why are tuples faster than lists in Python?**
+     - Tuples are immutable, meaning they require less memory and are faster to process since they don't need to support operations like insertion or deletion.
+   - **When should you use a tuple over a list?**
+     - Use a tuple when you want to ensure that the data remains unchanged.
+     - Example:
+       ```python
+       coords = (10, 20)  # Use tuple for fixed values
+       ```
+
+### 7. **Shallow vs Deep Copy:**
+   - **What is the difference between shallow and deep copy?**
+     - **Shallow copy** copies the outer object but not the nested objects, whereas **deep copy** copies everything, including nested objects.
+     - Example:
+       ```python
+       import copy
+       a = [1, [2, 3]]
+       b = copy.copy(a)  # Shallow copy
+       c = copy.deepcopy(a)  # Deep copy
+       ```
+   - **How do you perform deep copy in Python?**
+     - Use `copy.deepcopy()`.
+     - Example:
+       ```python
+       d = copy.deepcopy(a)
+       ```
+
+### 8. **Global and Nonlocal Keywords:**
+   - **What is the global keyword used for?**
+     - `global` allows a variable defined inside a function to refer to a global variable.
+     - Example:
+       ```python
+       x = 10
+       def modify_global():
+           global x
+           x = 20
+       modify_global()
+       print(x)  # 20
+       ```
+   - **How does `nonlocal` affect variable scope?**
+     - `nonlocal` allows you to modify variables in the nearest enclosing scope (but not global scope).
+     - Example:
+       ```python
+       def outer():
+           x = 10
+           def inner():
+               nonlocal x
+               x = 20
+           inner()
+           print(x)  # 20
+       outer()
+       ```
+
+### 9. **Classes and Objects:**
+   - **How do you create a class in Python?**
+     - Use the `class` keyword to define a class.
+     - Example:
+       ```python
+       class Dog:
+           def __init__(self, name):
+               self.name = name
+           def bark(self):
+               print(f"{self.name} is barking!")
+       
+       dog = Dog("Buddy")
+       dog.bark()  # Buddy is barking!
+       ```
+   - **What are instance methods and class methods?**
+     - **Instance methods** operate on an instance of a class. **Class methods** use `@classmethod` and operate on the class itself.
+     - Example:
+       ```python
+       class MyClass:
+           def instance_method(self):
+               print("Instance method")
+           @classmethod
+           def class_method(cls):
+               print("Class method")
+       ```
+
+### 10. **Inheritance and Polymorphism:**
+   - **How does inheritance work in Python?**
+     - One class (child) inherits attributes and methods from another (parent) class.
+     - Example:
+       ```python
+       class Animal:
+           def speak(self):
+               print("Animal sound")
+       
+       class Dog(Animal):
+           def speak(self):
+               print("Bark")
+       
+       dog = Dog()
+       dog.speak()  # Bark
+       ```
+   - **What is polymorphism, and how is it implemented?**
+     - Polymorphism allows different classes to have methods with the same name, but with different behaviors.
+     - Example:
+       ```python
+       def make_sound(animal):
+           animal.speak()
+
+       make_sound(Dog())  # Bark
+       ```
+
+### 11. **Dunder Methods (Magic Methods):**
+   - **What are dunder (double underscore) methods?**
+     - Special methods surrounded by double underscores, like `__init__()`, `__str__()`, and `__len__()`, used for operator overloading and custom behaviors.
+   - **How do `__str__()` and `__repr__()` differ?**
+     - `__str__()` is for a readable representation (used by `print()`), while `__repr__()` is for an unambiguous representation (used by `repr()`).
+     - Example:
+       ```python
+       class Person:
+           def __str__(self):
+               return "Person(name)"
+           def __repr__(self):
+               return "Person('name')"
+       ```
+
+### 12. **Iterators and Iterables:**
+   - **What is the difference between an iterator and an iterable?**
+     - An **iterable** is an object that can return an iterator (e.g., lists). An **iterator** is an object that yields values one at a time using `__next__()`.
+   - **How do you create a custom iterator class?**
+     - Example:
+       ```python
+       class Counter:
+           def __init__(self, limit):
+               self.limit = limit
+               self.count = 0
+           def __iter__(self):
+               return self
+           def __next__(self):
+               if self.count >= self.limit:
+                   raise StopIteration
+               self.count += 1
+               return self.count
+       
+       counter = Counter(5)
+       for i in counter:
+           print(i)  # 1, 2, 3, 4, 5
+       ```
+
+### 13. **Context Managers and with Statement:**
+   - **What is a context manager in Python?**
+     - A context manager handles setup and teardown tasks, ensuring resources like files are properly closed after use.
+   - **How do you create a custom context manager using the `__enter__` and `__exit__` methods?**
+     - Example:
+       ```python
+       class FileManager:
+           def
+
+ __enter__(self):
+               self.file = open('file.txt', 'w')
+               return self.file
+           def __exit__(self, exc_type, exc_val, exc_tb):
+               self.file.close()
+
+       with FileManager() as f:
+           f.write('Hello, World!')
+       ```
+
+### 14. **Regular Expressions (re module):**
+   - **How do you use the re module to find patterns in strings?**
+     - Use `re.search()`, `re.match()`, or `re.findall()` to find patterns.
+   - **What are common regular expression patterns for searching?**
+     - Example:
+       ```python
+       import re
+       pattern = r"\d+"  # Matches one or more digits
+       result = re.findall(pattern, "My number is 12345")  # ['12345']
+       ```
+
+### 15. **Handling JSON and CSV:**
+   - **How do you read and write JSON files in Python?**
+     - Use the `json` module.
+     - Example:
+       ```python
+       import json
+       data = {"name": "John", "age": 30}
+       with open('data.json', 'w') as f:
+           json.dump(data, f)
+       
+       with open('data.json', 'r') as f:
+           loaded_data = json.load(f)
+       ```
+   - **How do you handle CSV data using the csv module?**
+     - Example:
+       ```python
+       import csv
+       with open('data.csv', 'w') as f:
+           writer = csv.writer(f)
+           writer.writerow(['Name', 'Age'])
+           writer.writerow(['John', 30])
+       
+       with open('data.csv', 'r') as f:
+           reader = csv.reader(f)
+           for row in reader:
+               print(row)
+       ```   
+**L3 (Advanced)**
+
+---
+
+### 1. **Metaclasses**:
+   - **What are metaclasses in Python?**
+     Metaclasses are classes of classes. They define how classes behave and allow modification of class creation.
+   - **How do you create and use a metaclass?**
+     Example:
+     ```python
+     class Meta(type):
+         def __new__(cls, name, bases, dct):
+             print(f"Creating class {name}")
+             return super().__new__(cls, name, bases, dct)
+     
+     class MyClass(metaclass=Meta):
+         pass
+     ```
+     Output: `Creating class MyClass`
+
+---
+
+### 2. **Descriptors**:
+   - **What are descriptors in Python?**
+     Descriptors are objects that control the behavior of attribute access (get, set, delete) in a class.
+   - **How do you implement `__get__()`, `__set__()`, and `__delete__()` methods?**
+     Example:
+     ```python
+     class Descriptor:
+         def __get__(self, instance, owner):
+             return instance._value
+         
+         def __set__(self, instance, value):
+             instance._value = value
+         
+         def __delete__(self, instance):
+             del instance._value
+     
+     class MyClass:
+         attr = Descriptor()
+     
+     obj = MyClass()
+     obj.attr = 10
+     print(obj.attr)  # 10
+     ```
+
+---
+
+### 3. **Abstract Base Classes (ABC module)**:
+   - **What are Abstract Base Classes?**
+     Abstract Base Classes (ABCs) provide a way to define abstract methods that must be implemented by subclasses.
+   - **How do you use the abc module?**
+     Example:
+     ```python
+     from abc import ABC, abstractmethod
+
+     class Shape(ABC):
+         @abstractmethod
+         def area(self):
+             pass
+     
+     class Circle(Shape):
+         def area(self):
+             return 3.14 * 5 * 5
+     
+     circle = Circle()
+     print(circle.area())  # 78.5
+     ```
+
+---
+
+### 4. **Threading and Concurrency**:
+   - **How does threading work in Python?**
+     Threading allows multiple threads to run concurrently, sharing the same memory space.
+   - **What is the Global Interpreter Lock (GIL)?**
+     GIL is a mutex that protects access to Python objects, ensuring that only one thread executes Python code at a time.
+     Example:
+     ```python
+     import threading
+
+     def task():
+         print("Task running")
+     
+     thread = threading.Thread(target=task)
+     thread.start()
+     thread.join()
+     ```
+
+---
+
+### 5. **Multiprocessing**:
+   - **What is the difference between threading and multiprocessing?**
+     Threading uses threads in the same memory space, while multiprocessing creates separate processes with isolated memory.
+   - **How do you share data between processes?**
+     Example:
+     ```python
+     from multiprocessing import Process, Value
+
+     def task(num):
+         num.value += 1
+
+     num = Value('i', 0)
+     p = Process(target=task, args=(num,))
+     p.start()
+     p.join()
+     print(num.value)  # 1
+     ```
+
+---
+
+### 6. **Asyncio and Asynchronous Programming**:
+   - **How do you write asynchronous code using asyncio?**
+     `async` and `await` are used to define asynchronous functions.
+   - **Example**:
+     ```python
+     import asyncio
+
+     async def say_hello():
+         await asyncio.sleep(1)
+         print("Hello")
+
+     asyncio.run(say_hello())
+     ```
+
+---
+
+### 7. **Memory Management**:
+   - **How does Python handle memory management?**
+     Python uses reference counting and garbage collection to manage memory automatically.
+   - **Example:**
+     ```python
+     import gc
+     print(gc.isenabled())  # True (Garbage collector is enabled)
+     ```
+
+---
+
+### 8. **Cython and Performance Optimization**:
+   - **What is Cython?**
+     Cython is a superset of Python that compiles to C for performance improvements.
+   - **Example:**
+     ```bash
+     # Write Python code, convert it to Cython, and compile
+     cythonize -i my_module.pyx
+     ```
+
+---
+
+### 9. **Coroutines and Event Loops**:
+   - **What are coroutines?**
+     Coroutines are special functions that can pause and resume during execution.
+   - **Example:**
+     ```python
+     import asyncio
+
+     async def my_coroutine():
+         print("Start")
+         await asyncio.sleep(1)
+         print("End")
+
+     asyncio.run(my_coroutine())
+     ```
+
+---
+
+### 10. **Descriptors vs Properties**:
+   - **How do descriptors differ from properties?**
+     Descriptors manage attribute access at a class level, while properties are used to manage attribute access for specific attributes.
+   - **Example:**
+     ```python
+     class MyClass:
+         def __init__(self, x):
+             self._x = x
+
+         @property
+         def x(self):
+             return self._x
+         
+         @x.setter
+         def x(self, value):
+             self._x = value
+     ```
+
+---
+
+### 11. **Mocking and Unit Testing (unittest, pytest)**:
+   - **How do you mock objects in Python?**
+     Mocking is done using the `unittest.mock` module.
+   - **Example:**
+     ```python
+     from unittest.mock import Mock
+
+     mock_obj = Mock()
+     mock_obj.method.return_value = "Hello"
+     print(mock_obj.method())  # Hello
+     ```
+
+---
+
+### 12. **Creating Python Packages**:
+   - **How do you structure and create a Python package?**
+     A package contains an `__init__.py` file and other modules.
+   - **Example:**
+     ```
+     my_package/
+         __init__.py
+         module1.py
+         module2.py
+     ```
+
+---
+
+### 13. **Decorating Classes**:
+   - **How do you apply decorators to entire classes?**
+     Example:
+     ```python
+     def decorator(cls):
+         cls.new_method = lambda self: print("New method")
+         return cls
+
+     @decorator
+     class MyClass:
+         pass
+
+     obj = MyClass()
+     obj.new_method()  # New method
+     ```
+
+---
+
+### 14. **Function Caching (functools.lru_cache)**:
+   - **How does lru_cache work?**
+     It caches the results of expensive function calls to avoid recomputation.
+   - **Example:**
+     ```python
+     from functools import lru_cache
+
+     @lru_cache(maxsize=32)
+     def fib(n):
+         if n < 2:
+             return n
+         return fib(n-1) + fib(n-2)
+
+     print(fib(10))  # 55
+     ```
+
+---
+
+### 15. **Type Hinting and Type Checking**:
+   - **What are type hints?**
+     Type hints indicate the expected data types of variables or function parameters.
+   - **Example:**
+     ```python
+     def add(x: int, y: int) -> int:
+         return x + y
+     ```
+
+   - **How do you enforce type checking?**
+     Tools like `mypy` can be used for static type checking.
+     ```bash
+     mypy my_script.py
+     ```
+
+--- 
+
+**--ORM--**
+
+### 1. **What is ORM?**
+   - **Object-Relational Mapping (ORM)** is a programming technique that allows developers to interact with relational databases using object-oriented programming (OOP). It maps database tables to classes and rows to instances of those classes.
+   - **How is ORM used in web applications?**  
+     In web applications, ORMs provide a way to interact with the database without writing raw SQL queries. Instead, developers work with Python objects, which makes code easier to understand and maintain.
+
+   **Example**:
+   ```python
+   from sqlalchemy import create_engine, Column, Integer, String
+   from sqlalchemy.ext.declarative import declarative_base
+   from sqlalchemy.orm import sessionmaker
+
+   Base = declarative_base()
+
+   class User(Base):
+       __tablename__ = 'users'
+       id = Column(Integer, primary_key=True)
+       name = Column(String)
+
+   engine = create_engine('sqlite:///mydb.db')
+   Base.metadata.create_all(engine)
+   ```
+
+---
+
+### 2. **Popular ORM Libraries in Python**
+   - **Popular Python ORM libraries**:
+     - SQLAlchemy
+     - Django ORM
+     - Peewee
+     - Tortoise ORM
+   
+   - **Django ORM vs SQLAlchemy**:
+     - **Django ORM**: tightly integrated with Django, simple but less flexible.
+     - **SQLAlchemy**: standalone ORM, more flexible, supports complex queries.
+
+---
+
+### 3. **ORM vs. Raw SQL**
+   - **Advantages of ORM**:
+     - Abstraction from SQL.
+     - Easier to maintain and scale.
+     - Protects from SQL injection attacks.
+   - **When to prefer raw SQL**:
+     - For performance optimization.
+     - For complex queries not easily handled by ORM.
+
+   **Example of raw SQL in SQLAlchemy**:
+   ```python
+   from sqlalchemy import text
+
+   result = session.execute(text("SELECT * FROM users WHERE name = :name"), {"name": "John"})
+   ```
+
+---
+
+### 4. **Models in ORM**
+   - **What is a model?**  
+     A model represents a table in a database and its attributes represent table columns.
+   - **Defining a model**:
+   ```python
+   class Product(Base):
+       __tablename__ = 'products'
+       id = Column(Integer, primary_key=True)
+       name = Column(String)
+       price = Column(Integer)
+   ```
+
+---
+
+### 5. **Relationships in ORM**
+   - **One-to-Many**:
+     ```python
+     class Post(Base):
+         __tablename__ = 'posts'
+         id = Column(Integer, primary_key=True)
+         user_id = Column(Integer, ForeignKey('users.id'))
+     ```
+
+   - **Many-to-Many**:
+     ```python
+     association_table = Table('association', Base.metadata,
+         Column('user_id', Integer, ForeignKey('user.id')),
+         Column('group_id', Integer, ForeignKey('group.id'))
+     )
+     ```
+
+   - **One-to-One**:
+     ```python
+     class Profile(Base):
+         user_id = Column(Integer, ForeignKey('users.id'), unique=True)
+     ```
+
+---
+
+### 6. **Querying Data**
+   - **CRUD operations**:
+     - **Create**:
+       ```python
+       new_user = User(name="Alice")
+       session.add(new_user)
+       session.commit()
+       ```
+     - **Read**:
+       ```python
+       users = session.query(User).filter_by(name="Alice").all()
+       ```
+     - **Update**:
+       ```python
+       user = session.query(User).filter_by(id=1).first()
+       user.name = "Bob"
+       session.commit()
+       ```
+     - **Delete**:
+       ```python
+       session.delete(user)
+       session.commit()
+       ```
+
+   - **Complex Queries**:
+     - **Filtering**:
+       ```python
+       session.query(User).filter(User.age > 20).all()
+       ```
+     - **Ordering**:
+       ```python
+       session.query(User).order_by(User.name).all()
+       ```
+     - **Aggregation**:
+       ```python
+       session.query(func.count(User.id)).scalar()
+       ```
+
+---
+
+### 7. **Migrations in ORM**
+   - **What are migrations?**  
+     Migrations track changes to database schemas and apply them incrementally.
+   - **Creating and applying migrations** (Django example):
+     ```bash
+     python manage.py makemigrations
+     python manage.py migrate
+     ```
+
+---
+
+### 8. **Lazy vs. Eager Loading**
+   - **Lazy Loading**: Loads related data only when accessed.  
+     Example:
+     ```python
+     post = session.query(Post).first()
+     post.comments  # Fetches comments only now
+     ```
+
+   - **Eager Loading**: Loads related data upfront to avoid multiple database queries.
+     Example:
+     ```python
+     post = session.query(Post).options(joinedload(Post.comments)).first()
+     ```
+
+---
+
+### 9. **Transactions in ORM**
+   - **Handling transactions**:
+     Example:
+     ```python
+     with session.begin():
+         new_user = User(name="Alice")
+         session.add(new_user)
+     # Auto-committed if no errors
+     ```
+
+   - **Committing and rolling back**:
+     Example:
+     ```python
+     try:
+         session.commit()
+     except:
+         session.rollback()
+         raise
+     ```
+
+---
+
+### 10. **ORM Performance Optimization**
+   - **Common issues**:
+     - N+1 query problem.
+     - Unnecessary data fetching.
+   
+   - **Mitigations**:
+     - Use eager loading.
+     - Use `selectinload` for batch loading.
+
+---
+
+### 11. **Using ORM with Multiple Databases**
+   - **Configuring ORM with multiple databases** (Django example):
+     ```python
+     DATABASES = {
+         'default': {...},
+         'other': {...}
+     }
+     ```
+
+   - **Challenges**: Maintaining consistency across databases.
+
+---
+
+### 12. **Database Schemas and ORM**
+   - **Handling database schemas**: ORMs like Django and SQLAlchemy map the database schema to Python models.
+   - **Modifying schemas**: ORM migrations allow altering schema without raw SQL.
+
+---
+
+### 13. **ORM in Unit Testing**
+   - **Unit tests**:
+     Example using `pytest`:
+     ```python
+     def test_create_user(session):
+         new_user = User(name="Alice")
+         session.add(new_user)
+         session.commit()
+         assert new_user in session
+     ```
+
+   - **Mocking ORM**: Mock database connections to speed up tests.
+
+---
+
+### 14. **ORMs and Transactions: Savepoints**
+   - **Savepoints**: Intermediate points in a transaction.
+   - **Example**:
+     ```python
+     session.begin_nested()  # Savepoint
+     ```
+
+---
+
+### 15. **Custom Queries in ORM**
+   - **Writing raw SQL queries**:
+     ```python
+     session.execute(text("SELECT * FROM users"))
+     ```
+   - **Benefit**: Flexibility for complex queries.
+
+---
+
+**--Miscellaneous--**
+
+### 1. **Python Data Structures**
+
+- **Lists**: Ordered, mutable, and allow duplicate elements.
+  ```python
+  my_list = [1, 2, 3, 3, 4]  # List allows duplicates
+  ```
+- **Sets**: Unordered, mutable, and do not allow duplicates.
+  ```python
+  my_set = {1, 2, 3, 3, 4}  # Set automatically removes duplicates
+  ```
+- **Dictionaries**: Unordered, mutable, and store key-value pairs.
+  ```python
+  my_dict = {"name": "Alice", "age": 25}
+  ```
+
+---
+
+### 2. **List Slicing**
+
+List slicing allows you to retrieve a subset of a list using a start and end index.
+
+```python
+my_list = [1, 2, 3, 4, 5, 6]
+print(my_list[1:4])  # [2, 3, 4]
+print(my_list[:3])   # [1, 2, 3]
+print(my_list[::2])  # [1, 3, 5]
+```
+
+---
+
+### 3. **String Formatting**
+
+- **f-strings** (Python 3.6+):
+  ```python
+  name = "Alice"
+  print(f"Hello, {name}")
+  ```
+- **str.format()**:
+  ```python
+  print("Hello, {}".format(name))
+  ```
+- **% operator**:
+  ```python
+  print("Hello, %s" % name)
+  ```
+
+---
+
+### 4. **Python's Built-in Functions**
+
+Some commonly used built-in functions include:
+- `len()`: Returns the length of a list, string, etc.
+  ```python
+  len([1, 2, 3])  # 3
+  ```
+- `sum()`: Returns the sum of all elements.
+  ```python
+  sum([1, 2, 3])  # 6
+  ```
+- `max()`: Returns the largest element.
+  ```python
+  max([1, 2, 3])  # 3
+  ```
+
+---
+
+### 5. **Understanding Scope**
+
+- **Local**: Variables defined inside a function.
+  ```python
+  def func():
+      x = 10  # Local to func
+  ```
+- **Global**: Variables defined outside functions.
+  ```python
+  x = 10  # Global
+  ```
+- **Nonlocal**: Used to modify a variable in an enclosing function.
+  ```python
+  def outer():
+      x = 10
+      def inner():
+          nonlocal x
+          x = 20
+  ```
+
+---
+
+### 6. **The `__init__.py` File**
+
+The `__init__.py` file is used to mark a directory as a Python package, allowing the package's modules to be imported.
+
+```bash
+my_package/
+    __init__.py
+    module.py
+```
+
+---
+
+### 7. **Error Handling Best Practices**
+
+- Use specific exceptions rather than catching all exceptions.
+- Avoid suppressing exceptions.
+- Use `finally` for cleanup operations.
+
+Example:
+```python
+try:
+    result = 1 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+finally:
+    print("Cleanup")
+```
+
+---
+
+### 8. **Python's GIL (Global Interpreter Lock)**
+
+The **GIL** prevents multiple native threads from executing Python bytecodes simultaneously in the same process, affecting multithreading performance for CPU-bound tasks.
+
+---
+
+### 9. **Python Virtual Environments**
+
+- **Creating a virtual environment**:
+  ```bash
+  python -m venv myenv
+  ```
+- **Activating it**:
+  ```bash
+  source myenv/bin/activate  # Linux/Mac
+  myenv\Scripts\activate  # Windows
+  ```
+
+Virtual environments are useful for managing dependencies and avoiding version conflicts.
+
+---
+
+### 10. **Decorators with Arguments**
+
+A decorator with arguments can be created by nesting functions.
+
+```python
+def repeat(n):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for _ in range(n):
+                func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@repeat(3)
+def greet():
+    print("Hello!")
+
+greet()
+```
+
+---
+
+### 11. **Testing in Python (unittest and pytest)**
+
+- **unittest** is built-in and follows a more traditional style.
+- **pytest** is simpler, supports fixtures, and has better assertion introspection.
+
+Example with `pytest`:
+```python
+def test_sum():
+    assert sum([1, 2, 3]) == 6
+```
+
+---
+
+### 12. **Functional Programming Concepts**
+
+- **map**: Applies a function to all elements.
+  ```python
+  list(map(lambda x: x * 2, [1, 2, 3]))  # [2, 4, 6]
+  ```
+- **filter**: Filters elements based on a condition.
+  ```python
+  list(filter(lambda x: x > 2, [1, 2, 3]))  # [3]
+  ```
+- **reduce**: Reduces a list to a single value.
+  ```python
+  from functools import reduce
+  reduce(lambda x, y: x + y, [1, 2, 3])  # 6
+  ```
+
+---
+
+### 13. **Data Classes (Python 3.7+)**
+
+Data classes reduce boilerplate code when creating classes with attributes.
+
+```python
+from dataclasses import dataclass
+
+@dataclass
+class User:
+    name: str
+    age: int
+
+user = User(name="Alice", age=25)
+print(user)
+```
+
+---
+
+### 14. **Modules and Packages**
+
+- **Module**: A single Python file.
+  ```python
+  # module.py
+  def func():
+      return "Hello"
+  ```
+- **Package**: A directory containing an `__init__.py` file and multiple modules.
+
+---
+
+### 15. **Python Memory Management**
+
+- **Reference counting**: Each object keeps track of how many references point to it.
+- **Garbage collection**: Python collects objects with circular references when they are no longer accessible.
+
+---
+
+### 16. **Python's `with` Statement**
+
+The `with` statement simplifies resource management, such as opening and closing files automatically.
+
+```python
+with open('file.txt', 'r') as file:
+    data = file.read()
+```
+
+---
+
+### 17. **Method Resolution Order (MRO)**
+
+MRO determines the order in which base classes are searched when a method is called. It's determined using the **C3 linearization** algorithm.
+
+Example:
+```python
+class A: pass
+class B(A): pass
+class C(A): pass
+class D(B, C): pass
+
+print(D.mro())  # [D, B, C, A, object]
+```
+
+---
+
+### 18. **The `super()` Function**
+
+`super()` allows you to call methods from a parent class.
+
+```python
+class Parent:
+    def greet(self):
+        print("Hello from Parent")
+
+class Child(Parent):
+    def greet(self):
+        super().greet()
+        print("Hello from Child")
+
+child = Child()
+child.greet()
+```
+
+---
+
+### 19. **Context Managers**
+
+You can implement a context manager by defining `__enter__()` and `__exit__()` methods.
+
+```python
+class MyContext:
+    def __enter__(self):
+        print("Entering context")
+    
+    def __exit__(self, exc_type, exc_value, traceback):
+        print("Exiting context")
+
+with MyContext():
+    print("Inside context")
+```
+
+Alternatively, use the `contextlib` module:
+```python
+from contextlib import contextmanager
+
+@contextmanager
+def my_context():
+    print("Entering")
+    yield
+    print("Exiting")
+
+with my_context():
+    print("Inside")
+```
+
+---
+
+### 20. **Python Annotations**
+
+Function annotations allow you to specify expected argument and return types.
+
+```python
+def greet(name: str) -> str:
+    return f"Hello, {name}"
+
+print(greet("Alice"))
+``` 
+
+**--Comparisions--**
+
+**REST API (Representational State Transfer Application Programming Interface)** is an architectural style for designing networked applications. It uses standard HTTP methods and is stateless, meaning that each request from a client to a server must contain all the information needed to understand and process that request.
+
+**RESTful APIs** are APIs that adhere to the principles of REST. They typically follow a resource-based approach, allowing clients to interact with resources (data) using standard HTTP methods like GET, POST, PUT, and DELETE.
+
+#### Key Principles of REST:
+1. **Statelessness**: Each request must contain all necessary information; the server does not store session information.
+2. **Client-Server Separation**: The client and server operate independently, allowing for easier development and scalability.
+3. **Cacheability**: Responses must define themselves as cacheable or non-cacheable to improve performance.
+4. **Uniform Interface**: A consistent method of interacting with resources, typically through URIs.
+
+#### Example of a RESTful API Endpoint:
+```http
+GET /users/123
+```
+This endpoint retrieves the user with ID 123.
+
+### Comparison with Non-REST APIs
+
+| Feature                   | REST APIs                                  | Non-REST APIs                             |
+|---------------------------|--------------------------------------------|------------------------------------------|
+| **Architecture Style**    | Resource-oriented (CRUD)                   | Varies (SOAP, RPC, etc.)                 |
+| **Statelessness**         | Yes                                        | Not necessarily                            |
+| **HTTP Methods**          | Utilizes standard methods (GET, POST, etc.)| May use custom methods or protocols       |
+| **Data Format**           | Typically JSON or XML                      | Varies (XML, JSON, Protocol Buffers, etc.)|
+| **Caching**               | Supports caching                           | Caching mechanisms are implementation-specific |
+| **Error Handling**        | Uses standard HTTP status codes           | Custom error codes or formats            |
+| **Complexity**            | Generally simpler to understand            | May involve more complexity (e.g., WSDL) |
+
+### FastAPI vs. Flask
+
+| Feature                     | FastAPI                                 | Flask                                    |
+|-----------------------------|-----------------------------------------|------------------------------------------|
+| **Speed**                   | Very fast due to async capabilities    | Good, but not as fast as FastAPI        |
+| **Asynchronous Support**    | Native support for async and await     | Requires extensions for async support    |
+| **Data Validation**         | Automatic validation with Pydantic     | Manual validation required                |
+| **Automatic Documentation** | Automatically generates OpenAPI docs   | Requires additional libraries for docs   |
+| **Dependency Injection**    | Built-in support                        | Not built-in, requires extensions         |
+| **Ease of Use**             | Intuitive, especially for API devs     | Simple, but may require more setup       |
+| **Performance**             | High performance, suitable for high loads | Good performance, but less optimized     |
+
+### Other Topics
+
+#### 1. **WebSockets**
+WebSockets provide a way to open a persistent connection between a client and a server for real-time communication. Unlike HTTP, which is request-response based, WebSockets allow for two-way communication.
+
+**Example:**
+```python
+# FastAPI WebSocket example
+from fastapi import FastAPI, WebSocket
+
+app = FastAPI()
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        await websocket.send_text(f"Message text was: {data}")
+```
+
+#### 2. **GraphQL**
+GraphQL is an alternative to REST for APIs, allowing clients to request only the data they need. It uses a single endpoint and allows for more flexible queries.
+
+**Example:**
+```graphql
+query {
+  user(id: "123") {
+    name
+    email
+  }
+}
+```
+
+#### 3. **API Rate Limiting**
+Rate limiting is a technique to control the number of requests a user can make to an API in a given timeframe. This helps prevent abuse and ensures fair usage.
+
+**Example in FastAPI:**
+```python
+from fastapi import FastAPI, Depends
+from fastapi_limiter import FastAPILimiter, Limiter
+
+limiter = Limiter(key="global")
+
+app = FastAPI()
+
+@app.on_event("startup")
+async def startup():
+    await FastAPILimiter.init(redis_client)
+
+@app.get("/items/", dependencies=[Depends(limiter.limit("5/minute"))])
+async def read_items():
+    return [{"item": "Item 1"}, {"item": "Item 2"}]
+```
+
+#### 4. **API Authentication and Authorization**
+Securing APIs is crucial. Common methods include:
+- **Token-Based Authentication**: Using tokens (e.g., JWT) for stateless authentication.
+- **OAuth2**: A protocol for authorization that allows third-party applications to access user data without sharing passwords.
+
+#### 5. **Testing APIs**
+Testing APIs ensures reliability and performance. Common tools and frameworks include:
+- **Postman**: For manual API testing.
+- **pytest**: For writing automated tests.
+  
+**Example using pytest:**
+```python
+def test_read_item(client):
+    response = client.get("/items/1")
+    assert response.status_code == 200
+    assert response.json() == {"item": "Item 1"}
+```
 
 ## Others ---
 
