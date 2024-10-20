@@ -51,8 +51,6 @@
 
 ## Flutter Data Types -
 
----
-
 ## 1. **Numbers**
 
 Dart supports two types of numbers:
