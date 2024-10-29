@@ -5422,3 +5422,145 @@ void main() {
 
 ---
 
+## Streams in Dart/Flutter
+
+In Dart, **streams** are an essential part of handling asynchronous data. A **stream** is a sequence of asynchronous events that are delivered over time, allowing the handling of data such as user interactions, network responses, or any time-based event. Streams in Dart can be created, transformed, and used to manage continuous or one-time data flow.
+
+## Streams in Dart
+
+### Types of Streams
+
+1. **Single-Subscription Stream**
+   - **Definition**: These streams can only be listened to once. They are perfect for data that is received only once, such as an HTTP response or a file read operation.
+   - **Example**:
+     ```dart
+     import 'dart:async';
+
+     void main() {
+       Stream<int> singleSubscriptionStream = Stream.fromIterable([1, 2, 3]);
+       singleSubscriptionStream.listen((event) {
+         print(event); // Prints 1, 2, and 3 sequentially
+       });
+     }
+     ```
+
+2. **Broadcast Stream**
+   - **Definition**: A broadcast stream can be listened to by multiple listeners simultaneously. It’s suitable for events that are triggered multiple times, like WebSocket messages or UI events.
+   - **Example**:
+     ```dart
+     import 'dart:async';
+
+     void main() {
+       Stream<int> broadcastStream = Stream<int>.periodic(
+         Duration(seconds: 1),
+         (x) => x,
+       ).asBroadcastStream();
+
+       broadcastStream.listen((event) => print("Listener 1: $event"));
+       broadcastStream.listen((event) => print("Listener 2: $event"));
+     }
+     ```
+   - In this example, both listeners will receive the same periodic events from the stream.
+
+### Stream Features
+
+- **Event-based handling**: Streams allow handling asynchronous data as events (data or errors).
+- **Transformation**: Streams can be transformed using various methods such as `map`, `where`, `take`, `skip`, `expand`, etc., to produce a derived stream.
+- **Control over stream data**: Methods like `pause`, `resume`, `cancel` give you more control over how and when you handle stream data.
+
+---
+
+## RxDart in Dart and Flutter
+
+**RxDart** is a reactive extension for Dart that adds additional capabilities to the standard `Stream` API. It extends `Stream` with operators and utilities to handle complex asynchronous data flows, inspired by Reactive Extensions (Rx) from other programming languages.
+
+### Key Features of RxDart
+
+1. **BehaviorSubject**
+   - A `BehaviorSubject` is a type of `StreamController` that, in addition to emitting events to new subscribers, also replays the last emitted event upon subscription.
+   - **Example**:
+     ```dart
+     import 'package:rxdart/rxdart.dart';
+
+     void main() {
+       final subject = BehaviorSubject<int>();
+
+       subject.add(1); // Emit first event
+       subject.add(2); // Emit second event
+
+       // New listener will receive the latest emitted event
+       subject.listen((value) => print("Listener: $value"));
+
+       subject.add(3); // Emit third event
+     }
+     ```
+   - **Use Case**: It’s useful for handling UI state, where a new subscriber (e.g., a UI widget) needs the last known state immediately upon subscribing.
+
+2. **ReplaySubject**
+   - A `ReplaySubject` stores all events that have been added to it, and replays them to any new subscriber.
+   - **Example**:
+     ```dart
+     final replaySubject = ReplaySubject<int>();
+
+     replaySubject.add(1);
+     replaySubject.add(2);
+     replaySubject.add(3);
+
+     replaySubject.listen((value) => print("Listener: $value"));
+     ```
+   - **Use Case**: Ideal for scenarios where you need to replay a sequence of events, like a log of user interactions.
+
+3. **PublishSubject**
+   - `PublishSubject` only emits new events to its subscribers and does not retain any history. This is useful when subscribers only need to process future events.
+   - **Example**:
+     ```dart
+     final publishSubject = PublishSubject<int>();
+
+     publishSubject.listen((value) => print("Listener 1: $value"));
+     publishSubject.add(1); // Emits 1
+
+     publishSubject.listen((value) => print("Listener 2: $value"));
+     publishSubject.add(2); // Emits 2
+     ```
+
+4. **Distinct Until Changed**
+   - This operator prevents emitting repeated consecutive values, only passing through unique values.
+   - **Example**:
+     ```dart
+     final subject = BehaviorSubject<int>();
+
+     subject.distinct().listen((value) => print("Listener: $value"));
+
+     subject.add(1);
+     subject.add(1); // Won’t emit, since it’s a repeat of the last value
+     subject.add(2);
+     ```
+
+5. **Debounce and Throttle**
+   - **Debounce**: Delays event emission until a specific duration has passed without any new events.
+   - **Throttle**: Limits the rate of event emission.
+   - **Example**:
+     ```dart
+     final subject = BehaviorSubject<int>();
+
+     // Debounce example
+     subject.debounceTime(Duration(seconds: 1)).listen((value) => print("Debounced: $value"));
+
+     // Throttle example
+     subject.throttleTime(Duration(seconds: 1)).listen((value) => print("Throttled: $value"));
+     ```
+
+---
+
+### Summary Table
+
+| Type                | Description                                                                 | Use Case                              |
+|---------------------|-----------------------------------------------------------------------------|---------------------------------------|
+| **BehaviorSubject** | Stores and replays the last event to new subscribers.                       | UI state management                   |
+| **ReplaySubject**   | Stores and replays all past events to new subscribers.                      | Logging or event history              |
+| **PublishSubject**  | Emits only new events to subscribers, without storing history.              | Real-time updates                     |
+| **Debounce**        | Emits an event after a specified delay, useful for handling rapid input.    | Search fields, form input validation  |
+| **Throttle**        | Limits the rate of event emission to avoid performance bottlenecks.         | API rate limiting, button clicks      |
+| **Distinct Until Changed** | Filters out consecutive repeated events.                             | Avoid duplicate UI updates            |
+
+Using RxDart’s extended stream functionality enables a powerful way to handle reactive data flows in Flutter, making it easier to handle complex scenarios such as UI interactions, data streaming, and asynchronous events.
