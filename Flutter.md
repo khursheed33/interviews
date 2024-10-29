@@ -247,6 +247,357 @@ void main() {
 }
 ```
 
+---
+
+### 1. SOLID Principles
+
+**SOLID** is an acronym for five principles of object-oriented programming that help developers design software that is easy to manage and extend. 
+
+1. **Single Responsibility Principle (SRP)**: A class should have one, and only one, reason to change.
+   - **Good Example**:
+     ```dart
+     class User {
+       String name;
+       User(this.name);
+     }
+
+     class UserRepository {
+       void save(User user) {
+         // Code to save user to database
+       }
+     }
+
+     class UserService {
+       UserRepository repository;
+       UserService(this.repository);
+       void registerUser(User user) {
+         repository.save(user);
+         // Additional registration logic
+       }
+     }
+     ```
+   - **Bad Example**:
+     ```dart
+     class User {
+       String name;
+       void saveToDatabase() {
+         // Code to save user to database
+       }
+     }
+     ```
+
+2. **Open/Closed Principle (OCP)**: Software entities should be open for extension but closed for modification.
+   - **Good Example**:
+     ```dart
+     abstract class Shape {
+       double area();
+     }
+
+     class Circle implements Shape {
+       double radius;
+       Circle(this.radius);
+       double area() => 3.14 * radius * radius;
+     }
+
+     class Rectangle implements Shape {
+       double width, height;
+       Rectangle(this.width, this.height);
+       double area() => width * height;
+     }
+     ```
+   - **Bad Example**:
+     ```dart
+     class AreaCalculator {
+       double calculateArea(Object shape) {
+         if (shape is Circle) {
+           return 3.14 * shape.radius * shape.radius;
+         } else if (shape is Rectangle) {
+           return shape.width * shape.height;
+         }
+         // Add more shapes here requires modifying the class.
+       }
+     }
+     ```
+
+3. **Liskov Substitution Principle (LSP)**: Objects of a superclass should be replaceable with objects of a subclass without affecting the correctness of the program.
+   - **Good Example**:
+     ```dart
+     class Bird {
+       void fly() {}
+     }
+
+     class Sparrow extends Bird {
+       @override
+       void fly() {
+         // Sparrow flying
+       }
+     }
+
+     void makeBirdFly(Bird bird) {
+       bird.fly();
+     }
+     ```
+   - **Bad Example**:
+     ```dart
+     class Bird {
+       void fly() {}
+     }
+
+     class Ostrich extends Bird {
+       @override
+       void fly() {
+         throw Exception("Ostrich can't fly");
+       }
+     }
+     ```
+
+4. **Interface Segregation Principle (ISP)**: Clients should not be forced to depend on interfaces they do not use.
+   - **Good Example**:
+     ```dart
+     abstract class Flyer {
+       void fly();
+     }
+
+     abstract class Swimmer {
+       void swim();
+     }
+
+     class Duck implements Flyer, Swimmer {
+       @override
+       void fly() {
+         // Duck flying
+       }
+       @override
+       void swim() {
+         // Duck swimming
+       }
+     }
+     ```
+   - **Bad Example**:
+     ```dart
+     abstract class Bird {
+       void fly();
+       void swim();
+     }
+
+     class Penguin extends Bird {
+       @override
+       void swim() {
+         // Penguin swimming
+       }
+
+       @override
+       void fly() {
+         throw Exception("Penguins can't fly");
+       }
+     }
+     ```
+
+5. **Dependency Inversion Principle (DIP)**: High-level modules should not depend on low-level modules. Both should depend on abstractions.
+   - **Good Example**:
+     ```dart
+     abstract class Database {
+       void save(String data);
+     }
+
+     class MySQLDatabase implements Database {
+       @override
+       void save(String data) {
+         // Save data to MySQL
+       }
+     }
+
+     class UserService {
+       Database db;
+       UserService(this.db);
+       void registerUser(String userData) {
+         db.save(userData);
+       }
+     }
+     ```
+   - **Bad Example**:
+     ```dart
+     class UserService {
+       void registerUser(String userData) {
+         MySQLDatabase db = MySQLDatabase();
+         db.save(userData); // Direct dependency on MySQLDatabase
+       }
+     }
+     ```
+
+---
+
+### 2. Object-Oriented Programming (OOP)
+
+**OOP** is a programming paradigm based on the concept of "objects," which can contain data and code. The four main principles of OOP are encapsulation, inheritance, polymorphism, and abstraction.
+
+1. **Encapsulation**: Bundling data and methods that operate on the data within one unit, or class.
+   - **Example**:
+     ```dart
+     class BankAccount {
+       double _balance; // Private variable
+
+       BankAccount(this._balance);
+
+       void deposit(double amount) {
+         _balance += amount;
+       }
+
+       double get balance => _balance; // Getter for balance
+     }
+     ```
+
+2. **Inheritance**: A mechanism where one class can inherit properties and methods from another class.
+   - **Example**:
+     ```dart
+     class Animal {
+       void makeSound() {
+         print("Animal sound");
+       }
+     }
+
+     class Dog extends Animal {
+       @override
+       void makeSound() {
+         print("Bark");
+       }
+     }
+     ```
+
+3. **Polymorphism**: The ability to present the same interface for different data types. 
+   - **Example**:
+     ```dart
+     void makeAnimalSound(Animal animal) {
+       animal.makeSound();
+     }
+
+     void main() {
+       Dog dog = Dog();
+       makeAnimalSound(dog); // Output: Bark
+     }
+     ```
+
+4. **Abstraction**: Hiding complex implementation details and showing only the essential features of an object.
+   - **Example**:
+     ```dart
+     abstract class Shape {
+       double area();
+     }
+
+     class Circle extends Shape {
+       double radius;
+       Circle(this.radius);
+
+       @override
+       double area() => 3.14 * radius * radius;
+     }
+     ```
+
+---
+
+### 3. Isolates in Dart
+
+**Isolates** are independent workers in Dart that do not share memory. Instead, they communicate by passing messages. Dart is single-threaded for the UI, meaning the main isolate handles all UI tasks. When an isolate is created, it runs concurrently.
+
+- **How it Works**:
+  1. The main isolate (UI thread) processes events and updates the UI.
+  2. When a long-running task is initiated, a new isolate is created, allowing the main isolate to remain responsive.
+  3. The new isolate runs in its memory and can communicate with the main isolate using message passing.
+
+- **Example**:
+  ```dart
+  import 'dart:async';
+  import 'dart:isolate';
+
+  void isolateEntry(SendPort sendPort) {
+    // Long-running computation
+    int result = 0;
+    for (int i = 0; i < 100000000; i++) {
+      result += i;
+    }
+    sendPort.send(result);
+  }
+
+  void main() async {
+    ReceivePort receivePort = ReceivePort();
+    Isolate.spawn(isolateEntry, receivePort.sendPort);
+
+    receivePort.listen((data) {
+      print('Result from isolate: $data');
+      receivePort.close(); // Close the port when done
+    });
+  }
+  ```
+
+---
+
+### 4. Dependency Injection
+
+**Dependency Injection** (DI) is a design pattern that allows a class to receive its dependencies from external sources rather than creating them internally. This promotes loose coupling and makes the code easier to test.
+
+1. **In Riverpod**:
+   - Riverpod uses providers for DI. 
+   - **Example**:
+     ```dart
+     import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+     class UserService {
+       void fetchUser() {
+         // Fetch user data
+       }
+     }
+
+     final userServiceProvider = Provider((ref) => UserService());
+
+     void main() {
+       runApp(ProviderScope(child: MyApp()));
+     }
+
+     class MyApp extends StatelessWidget {
+       @override
+       Widget build(BuildContext context) {
+         final userService = context.read(userServiceProvider);
+         userService.fetchUser();
+         return Container();
+       }
+     }
+     ```
+
+2. **In Bloc**:
+   - Bloc uses `BlocProvider` for DI.
+   - **Example**:
+     ```dart
+     import 'package:flutter_bloc/flutter_bloc.dart';
+
+     class UserBloc extends Cubit<String> {
+       UserBloc() : super("Initial User");
+
+       void updateUser(String user) {
+         emit(user);
+       }
+     }
+
+     void main() {
+       runApp(
+         BlocProvider(
+           create: (context) => UserBloc(),
+           child: MyApp(),
+         ),
+       );
+     }
+
+     class MyApp extends StatelessWidget {
+       @override
+       Widget build(BuildContext context) {
+         final userBloc = BlocProvider.of<UserBloc>(context);
+         userBloc.updateUser("New User");
+         return Container();
+       }
+     }
+     ```
+
+---
+
 ## **Security Guidelines in Flutter**
 
 #### **Best Practices for Security in Flutter Applications**
