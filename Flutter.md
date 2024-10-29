@@ -481,172 +481,172 @@ void main() {
      ```
 
 3. **Polymorphism**: The ability to present the same interface for different data types.
-Polymorphism in Dart allows you to use a common interface or superclass to call methods on different subclasses, enabling them to behave differently depending on their implementation. This is a core concept in object-oriented programming, allowing classes to have unique behaviors while sharing the same interface. 
-
-Here are some common examples of polymorphism in Dart:
-
-### Example 1: Polymorphism with Inheritance
-
-In this example, different subclasses (`Dog` and `Cat`) inherit from the superclass `Animal` and provide their own unique implementations of the `speak()` method.
-
-```dart
-// Superclass
-class Animal {
-  void speak() {
-    print("Animal speaks");
-  }
-}
-
-// Subclass 1
-class Dog extends Animal {
-  @override
-  void speak() {
-    print("Dog barks");
-  }
-}
-
-// Subclass 2
-class Cat extends Animal {
-  @override
-  void speak() {
-    print("Cat meows");
-  }
-}
-
-void main() {
-  // Polymorphism in action
-  Animal animal1 = Dog();
-  Animal animal2 = Cat();
-
-  animal1.speak(); // Output: Dog barks
-  animal2.speak(); // Output: Cat meows
-}
-```
-
-Here, `animal1` and `animal2` are of type `Animal`, but they reference instances of `Dog` and `Cat`. The `speak()` method behaves differently based on the object type, demonstrating polymorphism.
-
----
-
-### Example 2: Polymorphism with Interfaces (`implements`)
-
-Using interfaces (via `implements`), you can achieve polymorphism by having multiple classes implement the same interface and provide different behavior.
-
-```dart
-// Interface
-abstract class Shape {
-  double area();
-}
-
-// Class implementing the interface
-class Circle implements Shape {
-  double radius;
+  Polymorphism in Dart allows you to use a common interface or superclass to call methods on different subclasses, enabling them to behave differently depending on their implementation. This is a core concept in object-oriented programming, allowing classes to have unique behaviors while sharing the same interface. 
   
-  Circle(this.radius);
-
-  @override
-  double area() {
-    return 3.14 * radius * radius;
+  Here are some common examples of polymorphism in Dart:
+  
+  ### Example 1: Polymorphism with Inheritance
+  
+  In this example, different subclasses (`Dog` and `Cat`) inherit from the superclass `Animal` and provide their own unique implementations of the `speak()` method.
+  
+  ```dart
+  // Superclass
+  class Animal {
+    void speak() {
+      print("Animal speaks");
+    }
   }
-}
-
-// Another class implementing the interface
-class Rectangle implements Shape {
-  double width, height;
-
-  Rectangle(this.width, this.height);
-
-  @override
-  double area() {
-    return width * height;
+  
+  // Subclass 1
+  class Dog extends Animal {
+    @override
+    void speak() {
+      print("Dog barks");
+    }
   }
-}
-
-void main() {
-  Shape circle = Circle(5.0);
-  Shape rectangle = Rectangle(4.0, 6.0);
-
-  print("Circle Area: ${circle.area()}"); // Output: Circle Area: 78.5
-  print("Rectangle Area: ${rectangle.area()}"); // Output: Rectangle Area: 24.0
-}
-```
-
-Here, both `Circle` and `Rectangle` classes implement the `Shape` interface and define their own `area()` calculation. When you call `area()` on each object, it uses the correct implementation based on the object’s type.
-
----
-
-### Example 3: Polymorphism with Method Overriding
-
-Method overriding in polymorphism allows subclasses to provide their own implementation of a method from the superclass. Here’s an example:
-
-```dart
-class Vehicle {
-  void start() {
-    print("Starting vehicle...");
+  
+  // Subclass 2
+  class Cat extends Animal {
+    @override
+    void speak() {
+      print("Cat meows");
+    }
   }
-}
-
-class Car extends Vehicle {
-  @override
-  void start() {
-    print("Starting car...");
+  
+  void main() {
+    // Polymorphism in action
+    Animal animal1 = Dog();
+    Animal animal2 = Cat();
+  
+    animal1.speak(); // Output: Dog barks
+    animal2.speak(); // Output: Cat meows
   }
-}
-
-class Bike extends Vehicle {
-  @override
-  void start() {
-    print("Starting bike...");
+  ```
+  
+  Here, `animal1` and `animal2` are of type `Animal`, but they reference instances of `Dog` and `Cat`. The `speak()` method behaves differently based on the object type, demonstrating polymorphism.
+  
+  ---
+  
+  ### Example 2: Polymorphism with Interfaces (`implements`)
+  
+  Using interfaces (via `implements`), you can achieve polymorphism by having multiple classes implement the same interface and provide different behavior.
+  
+  ```dart
+  // Interface
+  abstract class Shape {
+    double area();
   }
-}
-
-void main() {
-  Vehicle vehicle1 = Car();
-  Vehicle vehicle2 = Bike();
-
-  vehicle1.start(); // Output: Starting car...
-  vehicle2.start(); // Output: Starting bike...
-}
-```
-
-In this example, `Car` and `Bike` are subclasses of `Vehicle` and override the `start()` method. Based on the object type, Dart invokes the overridden `start()` method.
-
----
-
-### Example 4: Polymorphism with Collection of Objects
-
-You can also see polymorphism in action when you store different subclasses in a collection and iterate over them, calling the same method on each element.
-
-```dart
-abstract class Employee {
-  void work();
-}
-
-class Developer extends Employee {
-  @override
-  void work() {
-    print("Developer writes code.");
+  
+  // Class implementing the interface
+  class Circle implements Shape {
+    double radius;
+    
+    Circle(this.radius);
+  
+    @override
+    double area() {
+      return 3.14 * radius * radius;
+    }
   }
-}
-
-class Designer extends Employee {
-  @override
-  void work() {
-    print("Designer creates designs.");
+  
+  // Another class implementing the interface
+  class Rectangle implements Shape {
+    double width, height;
+  
+    Rectangle(this.width, this.height);
+  
+    @override
+    double area() {
+      return width * height;
+    }
   }
-}
-
-void main() {
-  List<Employee> employees = [Developer(), Designer()];
-
-  for (var employee in employees) {
-    employee.work();
+  
+  void main() {
+    Shape circle = Circle(5.0);
+    Shape rectangle = Rectangle(4.0, 6.0);
+  
+    print("Circle Area: ${circle.area()}"); // Output: Circle Area: 78.5
+    print("Rectangle Area: ${rectangle.area()}"); // Output: Rectangle Area: 24.0
   }
-  // Output:
-  // Developer writes code.
-  // Designer creates designs.
-}
-```
-
+  ```
+  
+  Here, both `Circle` and `Rectangle` classes implement the `Shape` interface and define their own `area()` calculation. When you call `area()` on each object, it uses the correct implementation based on the object’s type.
+  
+  ---
+  
+  ### Example 3: Polymorphism with Method Overriding
+  
+  Method overriding in polymorphism allows subclasses to provide their own implementation of a method from the superclass. Here’s an example:
+  
+  ```dart
+  class Vehicle {
+    void start() {
+      print("Starting vehicle...");
+    }
+  }
+  
+  class Car extends Vehicle {
+    @override
+    void start() {
+      print("Starting car...");
+    }
+  }
+  
+  class Bike extends Vehicle {
+    @override
+    void start() {
+      print("Starting bike...");
+    }
+  }
+  
+  void main() {
+    Vehicle vehicle1 = Car();
+    Vehicle vehicle2 = Bike();
+  
+    vehicle1.start(); // Output: Starting car...
+    vehicle2.start(); // Output: Starting bike...
+  }
+  ```
+  
+  In this example, `Car` and `Bike` are subclasses of `Vehicle` and override the `start()` method. Based on the object type, Dart invokes the overridden `start()` method.
+  
+  ---
+  
+  ### Example 4: Polymorphism with Collection of Objects
+  
+  You can also see polymorphism in action when you store different subclasses in a collection and iterate over them, calling the same method on each element.
+  
+  ```dart
+  abstract class Employee {
+    void work();
+  }
+  
+  class Developer extends Employee {
+    @override
+    void work() {
+      print("Developer writes code.");
+    }
+  }
+  
+  class Designer extends Employee {
+    @override
+    void work() {
+      print("Designer creates designs.");
+    }
+  }
+  
+  void main() {
+    List<Employee> employees = [Developer(), Designer()];
+  
+    for (var employee in employees) {
+      employee.work();
+    }
+    // Output:
+    // Developer writes code.
+    // Designer creates designs.
+  }
+  ```
+  
 Here, both `Developer` and `Designer` classes implement the `Employee` interface and provide their specific implementation for the `work()` method. The polymorphic behavior allows you to treat all objects in the `employees` list as `Employee` types while calling their respective implementations of `work()`.
 
 4. **Abstraction**: Hiding complex implementation details and showing only the essential features of an object.
