@@ -249,6 +249,22 @@ void main() {
 
 ---
 
+| **Data Type** | **Description**                              | **Methods**                                                        | **Example** |
+|---------------|----------------------------------------------|--------------------------------------------------------------------|-------------|
+| `int`         | Represents whole numbers                    | `abs()`, `toDouble()`, `toString()`, `isEven`, `isOdd`, `bitLength` | ```dart int num = -5; print(num.abs()); // 5 print(num.isEven); // false ``` |
+| `double`      | Represents floating-point numbers           | `abs()`, `ceil()`, `floor()`, `round()`, `toInt()`, `toStringAsFixed()` | ```dart double num = 5.6; print(num.ceil()); // 6 print(num.floor()); // 5 ``` |
+| `num`         | Superclass of `int` and `double`            | `abs()`, `ceil()`, `floor()`, `round()`, `toStringAsFixed()`, `sign` | ```dart num number = -5.7; print(number.abs()); // 5.7 print(number.sign); // -1 ``` |
+| `String`      | Sequence of characters (UTF-16)             | `length`, `contains()`, `substring()`, `toUpperCase()`, `toLowerCase()`, `split()`, `trim()`, `replaceAll()` | ```dart String greeting = "Hello, Dart!"; print(greeting.toUpperCase()); // "HELLO, DART!" ``` |
+| `bool`        | Represents `true` or `false` values        | Logical operators (`&&`, `||`, `!`), comparison (`==`, `!=`)       | ```dart bool isActive = true; print(isActive); // true ``` |
+| `List`        | Ordered collection of items                 | `add()`, `remove()`, `length`, `contains()`, `indexOf()`, `map()`, `sort()`, `forEach()`, `join()` | ```dart List<int> numbers = [1, 2, 3]; numbers.add(4); print(numbers); // [1, 2, 3, 4] ``` |
+| `Set`         | Unordered collection of unique items        | `add()`, `remove()`, `contains()`, `union()`, `intersection()`, `difference()`, `length` | ```dart Set<int> uniqueNumbers = {1, 2, 3}; uniqueNumbers.add(3); print(uniqueNumbers); // {1, 2, 3} ``` |
+| `Map`         | Collection of key-value pairs               | `addAll()`, `clear()`, `containsKey()`, `containsValue()`, `length`, `remove()`, `keys`, `values` | ```dart Map<String, int> ages = {'Alice': 30}; ages['Bob'] = 25; print(ages); // {Alice: 30, Bob: 25} ``` |
+| `BigInt`      | Arbitrarily large integer                   | `+`, `-`, `*`, `/`, `%`, `pow()`, `isEven`, `isOdd`, `bitLength`  | ```dart BigInt bigNum = BigInt.parse('12345678901234567890'); print(bigNum); ``` |
+| `dynamic`     | Can hold any data type                      | N/A                                                                | ```dart dynamic var = 100; var = "String"; print(var); // "String" ``` |
+| `void`        | Represents no value                         | N/A                                                                | ```dart void printMessage() { print("Hello!"); } printMessage(); ``` |
+
+---
+
 ### 1. SOLID Principles
 
 **SOLID** is an acronym for five principles of object-oriented programming that help developers design software that is easy to manage and extend. 
