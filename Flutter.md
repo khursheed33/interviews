@@ -4739,3 +4739,282 @@ class _MyAppState extends State<MyApp> {
   }
 }
 ```
+
+# Flutter Tests
+
+---
+
+## 1. Setting Up the Testing Environment
+
+First, make sure your `pubspec.yaml` includes the `flutter_test` package, which comes by default in Flutter projects, and a mocking library like `mockito` or `mocktail`.
+
+```yaml
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mockito: ^5.0.16 # or
+  mocktail: ^0.2.0
+```
+
+After adding these dependencies, run:
+
+```bash
+flutter pub get
+```
+
+---
+
+## 2. Writing Unit Tests
+
+Consider a simple example of a `Counter` class that increments a value.
+
+### Example Code: Counter Class
+
+```dart
+class Counter {
+  int _value = 0;
+
+  int get value => _value;
+
+  void increment() {
+    _value++;
+  }
+
+  void decrement() {
+    _value--;
+  }
+}
+```
+
+### Writing Unit Tests for Counter
+
+Create a new test file in the `test` folder, e.g., `counter_test.dart`.
+
+```dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:your_project_name/counter.dart';
+
+void main() {
+  group('Counter', () {
+    test('initial value should be 0', () {
+      final counter = Counter();
+
+      expect(counter.value, 0);
+    });
+
+    test('value should increment', () {
+      final counter = Counter();
+
+      counter.increment();
+
+      expect(counter.value, 1);
+    });
+
+    test('value should decrement', () {
+      final counter = Counter();
+
+      counter.increment(); // Increment to ensure decrement works correctly.
+      counter.decrement();
+
+      expect(counter.value, 0);
+    });
+  });
+}
+```
+
+### Explanation
+
+- **group** organizes related tests together.
+- **test** defines each individual test case.
+- **expect** checks the actual value against the expected value.
+
+---
+
+## 3. Mocking in Flutter Tests
+
+Mocking is essential when your class depends on other classes, like services or repositories. This ensures that tests focus only on the class being tested, isolating external dependencies.
+
+Consider the following example of a `UserService` that depends on a `UserRepository` to fetch user data.
+
+### Example Code: User Repository and User Service
+
+```dart
+class User {
+  final String name;
+  User(this.name);
+}
+
+abstract class UserRepository {
+  Future<User> fetchUser();
+}
+
+class UserService {
+  final UserRepository repository;
+
+  UserService(this.repository);
+
+  Future<String> getUserName() async {
+    final user = await repository.fetchUser();
+    return user.name;
+  }
+}
+```
+
+### Setting Up Mocks with Mockito
+
+To create a mock for `UserRepository`, use `mockito` to generate the mock.
+
+1. **Annotate the `UserRepository`** class with `@GenerateMocks` in a test file, e.g., `user_service_test.dart`.
+
+```dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+import 'package:your_project_name/user_repository.dart';
+import 'package:your_project_name/user_service.dart';
+
+@GenerateMocks([UserRepository])
+void main() {
+  // Mockito will generate mocks in user_service_test.mocks.dart file.
+}
+```
+
+2. **Generate the Mock**
+
+Run the following command to generate the mock files:
+
+```bash
+flutter pub run build_runner build
+```
+
+This creates a file called `user_service_test.mocks.dart` containing a `MockUserRepository` class.
+
+3. **Using the Mock in Tests**
+
+In `user_service_test.dart`, you can now use the `MockUserRepository` to test `UserService`.
+
+```dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:your_project_name/user_service.dart';
+import 'package:your_project_name/user_repository.dart';
+import 'user_service_test.mocks.dart';
+
+void main() {
+  group('UserService', () {
+    late UserService userService;
+    late MockUserRepository mockUserRepository;
+
+    setUp(() {
+      mockUserRepository = MockUserRepository();
+      userService = UserService(mockUserRepository);
+    });
+
+    test('should return user name when fetchUser is successful', () async {
+      // Arrange
+      when(mockUserRepository.fetchUser())
+          .thenAnswer((_) async => User('Alice'));
+
+      // Act
+      final name = await userService.getUserName();
+
+      // Assert
+      expect(name, 'Alice');
+      verify(mockUserRepository.fetchUser()).called(1);
+      verifyNoMoreInteractions(mockUserRepository);
+    });
+
+    test('should throw error when fetchUser fails', () async {
+      // Arrange
+      when(mockUserRepository.fetchUser())
+          .thenThrow(Exception('User not found'));
+
+      // Act & Assert
+      expect(() => userService.getUserName(), throwsException);
+      verify(mockUserRepository.fetchUser()).called(1);
+      verifyNoMoreInteractions(mockUserRepository);
+    });
+  });
+}
+```
+
+### Explanation
+
+- **when** defines the mock's behavior, simulating `fetchUser()` returning a `User`.
+- **verify** confirms that the mocked `fetchUser()` method was called.
+- **throwsException** checks that the method throws an exception when an error occurs.
+
+---
+
+### Mocking with `mocktail`
+
+If you’re using `mocktail`, the setup is similar but simpler as it doesn’t require code generation.
+
+1. **Import `mocktail`**
+
+```dart
+import 'package:mocktail/mocktail.dart';
+```
+
+2. **Create a Mock Class**
+
+```dart
+class MockUserRepository extends Mock implements UserRepository {}
+```
+
+3. **Test Implementation**
+
+```dart
+void main() {
+  group('UserService with mocktail', () {
+    late UserService userService;
+    late MockUserRepository mockUserRepository;
+
+    setUp(() {
+      mockUserRepository = MockUserRepository();
+      userService = UserService(mockUserRepository);
+    });
+
+    test('should return user name when fetchUser is successful', () async {
+      // Arrange
+      when(() => mockUserRepository.fetchUser())
+          .thenAnswer((_) async => User('Alice'));
+
+      // Act
+      final name = await userService.getUserName();
+
+      // Assert
+      expect(name, 'Alice');
+      verify(() => mockUserRepository.fetchUser()).called(1);
+    });
+
+    test('should throw error when fetchUser fails', () async {
+      // Arrange
+      when(() => mockUserRepository.fetchUser()).thenThrow(Exception('User not found'));
+
+      // Act & Assert
+      expect(() => userService.getUserName(), throwsException);
+      verify(() => mockUserRepository.fetchUser()).called(1);
+    });
+  });
+}
+```
+
+---
+
+## 4. Running Tests
+
+To run all tests in the project:
+
+```bash
+flutter test
+```
+
+To run a specific test file:
+
+```bash
+flutter test test/user_service_test.dart
+```
+
+---
