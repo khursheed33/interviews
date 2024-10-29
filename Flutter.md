@@ -5059,3 +5059,366 @@ flutter test test/user_service_test.dart
 | **Device Features** | `path_provider`          | Provides paths to commonly used directories on the file system, like documents and temporary directories.                                        | Accessing app-specific directories to save files locally.                     |
 |                     | `package_info_plus`      | Retrieves package information like version number, build number, and app name.                                                                  | Displaying version info in the app and tracking app updates.                  |
 |                     | `battery_plus`           | Provides battery status and charging state information.                                                                                          | Monitoring battery usage or alerting users about low battery in certain cases. |
+
+
+---
+
+## Azure Integrations
+
+---
+
+### 1. **Azure Active Directory (AAD) for Authentication**
+
+Azure Active Directory provides secure identity and access management. In a Flutter app, AAD can be used for authenticating users via OAuth2, allowing sign-ins with Microsoft or organizational accounts.
+
+#### Setup and Example:
+1. **Register your Flutter app** in Azure AD to obtain the **Client ID** and **Tenant ID**.
+2. **Install** the [flutter_appauth](https://pub.dev/packages/flutter_appauth) package in your Flutter project.
+
+3. **Code Example**: Authenticate users via OAuth2.
+
+   ```dart
+   import 'package:flutter_appauth/flutter_appauth.dart';
+
+   final FlutterAppAuth appAuth = FlutterAppAuth();
+   
+   // OAuth2 credentials from Azure
+   const clientId = '<YOUR_CLIENT_ID>';
+   const tenantId = '<YOUR_TENANT_ID>';
+   const redirectUri = '<YOUR_REDIRECT_URI>';
+
+   Future<void> signInWithAAD() async {
+     try {
+       final result = await appAuth.authorizeAndExchangeCode(
+         AuthorizationTokenRequest(
+           clientId,
+           redirectUri,
+           issuer: 'https://login.microsoftonline.com/$tenantId',
+           scopes: ['openid', 'profile', 'email', 'offline_access'],
+         ),
+       );
+       if (result != null) {
+         print("Access Token: ${result.accessToken}");
+       }
+     } catch (e) {
+       print("Authentication failed: $e");
+     }
+   }
+   ```
+
+4. **Use the Access Token** for accessing Azure services that require authenticated users.
+
+---
+
+### 2. **Azure Cognitive Services for AI/ML**
+
+Azure Cognitive Services provide APIs for text analytics, vision, language understanding, and speech processing.
+
+#### Example: Text Analytics API for Sentiment Analysis
+1. **Create a Text Analytics Resource** in Azure and retrieve the **Endpoint** and **API Key**.
+2. **Add the `http` package** to Flutter for making HTTP requests.
+
+3. **Code Example**: Analyze sentiment in text input.
+
+   ```dart
+   import 'dart:convert';
+   import 'package:http/http.dart' as http;
+
+   const endpoint = '<YOUR_TEXT_ANALYTICS_ENDPOINT>';
+   const apiKey = '<YOUR_TEXT_ANALYTICS_API_KEY>';
+
+   Future<void> analyzeSentiment(String text) async {
+     final uri = Uri.parse('$endpoint/text/analytics/v3.0/sentiment');
+     final headers = {
+       'Content-Type': 'application/json',
+       'Ocp-Apim-Subscription-Key': apiKey,
+     };
+     final body = jsonEncode({
+       'documents': [
+         {'id': '1', 'language': 'en', 'text': text},
+       ],
+     });
+     final response = await http.post(uri, headers: headers, body: body);
+     final result = jsonDecode(response.body);
+     print("Sentiment: ${result['documents'][0]['sentiment']}");
+   }
+   ```
+
+   - **Usage**: Call `analyzeSentiment("Your text here")` to analyze the sentiment of any text.
+
+---
+
+### 3. **Azure Blob Storage for File Storage**
+
+Azure Blob Storage can store files, images, and data for applications, accessible via secure URLs or tokens.
+
+#### Setup and Example:
+1. **Set up a Storage Account** in Azure and create a container for storing files.
+2. **Generate a Shared Access Signature (SAS)** to securely upload or access blobs.
+3. **Use `http` package** to interact with the Blob Storage API.
+
+4. **Code Example**: Upload a file to Azure Blob Storage.
+
+   ```dart
+   import 'dart:io';
+   import 'package:http/http.dart' as http;
+
+   Future<void> uploadFileToBlob(String filePath) async {
+     final file = File(filePath);
+     final sasToken = "<YOUR_SAS_TOKEN>";
+     final containerUrl = "<YOUR_CONTAINER_URL>";
+
+     final uri = Uri.parse('$containerUrl/${file.uri.pathSegments.last}$sasToken');
+     final response = await http.put(
+       uri,
+       headers: {'x-ms-blob-type': 'BlockBlob'},
+       body: await file.readAsBytes(),
+     );
+
+     if (response.statusCode == 201) {
+       print("File uploaded successfully");
+     } else {
+       print("Failed to upload file: ${response.reasonPhrase}");
+     }
+   }
+   ```
+
+   - **Usage**: Call `uploadFileToBlob('/path/to/your/file.png')` to upload the specified file.
+
+---
+
+### 4. **Azure Cosmos DB for NoSQL Database**
+
+Azure Cosmos DB provides a NoSQL database service with multiple APIs (MongoDB, SQL, Table, etc.).
+
+#### Example: Connecting to Cosmos DB via REST API
+1. **Set up Cosmos DB Account** and get **Endpoint** and **Primary Key**.
+2. **Install `http` package** for making API requests.
+
+3. **Code Example**: Querying data from a Cosmos DB collection.
+
+   ```dart
+   import 'dart:convert';
+   import 'package:http/http.dart' as http;
+
+   const endpoint = '<YOUR_COSMOS_DB_ENDPOINT>';
+   const primaryKey = '<YOUR_COSMOS_DB_PRIMARY_KEY>';
+   const databaseId = '<YOUR_DATABASE_ID>';
+   const containerId = '<YOUR_CONTAINER_ID>';
+
+   Future<void> fetchDocuments() async {
+     final uri = Uri.parse('$endpoint/dbs/$databaseId/colls/$containerId/docs');
+     final headers = {
+       'Authorization': 'type=master&ver=1.0&sig=$primaryKey',
+       'x-ms-date': DateTime.now().toUtc().toIso8601String(),
+       'x-ms-version': '2018-12-31',
+     };
+
+     final response = await http.get(uri, headers: headers);
+     if (response.statusCode == 200) {
+       final data = jsonDecode(response.body);
+       print("Documents: ${data['Documents']}");
+     } else {
+       print("Failed to fetch documents: ${response.reasonPhrase}");
+     }
+   }
+   ```
+
+   - **Usage**: Call `fetchDocuments()` to retrieve data from Cosmos DB.
+
+---
+
+### 5. **Azure Notification Hubs for Push Notifications**
+
+Azure Notification Hubs enable sending push notifications across multiple platforms, such as iOS and Android.
+
+#### Setup and Example:
+1. **Create a Notification Hub** in Azure and get the **Connection String** and **Hub Name**.
+2. **Install Firebase Cloud Messaging (FCM)** in your Flutter app to receive notifications.
+
+3. **Code Example**: Sending a test notification to a device.
+
+   ```dart
+   import 'package:http/http.dart' as http;
+
+   const connectionString = '<YOUR_NOTIFICATION_HUB_CONNECTION_STRING>';
+   const hubName = '<YOUR_HUB_NAME>';
+   const fcmToken = '<DEVICE_FCM_TOKEN>';
+
+   Future<void> sendNotification(String message) async {
+     final uri = Uri.parse('https://<YOUR_NAMESPACE>.servicebus.windows.net/$hubName/messages?direct');
+     final headers = {
+       'Authorization': 'Bearer $connectionString',
+       'Content-Type': 'application/json',
+       'ServiceBusNotification-Format': 'gcm',
+     };
+     final body = jsonEncode({
+       'notification': {'title': 'New Notification', 'body': message},
+       'to': fcmToken,
+     });
+
+     final response = await http.post(uri, headers: headers, body: body);
+     if (response.statusCode == 201) {
+       print("Notification sent successfully");
+     } else {
+       print("Failed to send notification: ${response.reasonPhrase}");
+     }
+   }
+   ```
+
+   - **Usage**: Call `sendNotification("Your message here")` to send a notification to the specified device.
+
+---
+
+## Factory, Singleton and LazySingleton
+
+---
+
+### 1. **Factory Constructor**
+
+A factory constructor in Dart is a constructor that doesn’t always create a new instance of the class. Instead, it can return an existing instance or create a new one based on some condition. Factory constructors are often used for controlling instance creation.
+
+#### Example:
+
+Suppose you have a class `DatabaseConnection` that connects to a database, and you want to ensure only one instance of this connection is created.
+
+```dart
+class DatabaseConnection {
+  static DatabaseConnection? _instance;
+
+  // Private constructor
+  DatabaseConnection._internal();
+
+  // Factory constructor
+  factory DatabaseConnection() {
+    if (_instance == null) {
+      _instance = DatabaseConnection._internal();
+      print("New DatabaseConnection instance created");
+    } else {
+      print("Existing DatabaseConnection instance returned");
+    }
+    return _instance!;
+  }
+
+  void connect() {
+    print("Connected to the database.");
+  }
+}
+
+void main() {
+  var db1 = DatabaseConnection();
+  db1.connect();
+
+  var db2 = DatabaseConnection();
+  db2.connect();
+
+  print(db1 == db2);  // Outputs: true, proving that db1 and db2 are the same instance
+}
+```
+
+**Explanation**:
+- The `DatabaseConnection` factory constructor checks if an instance already exists (`_instance`). If it doesn’t, it creates a new instance; otherwise, it returns the existing one.
+
+---
+
+### 2. **Singleton Pattern**
+
+The Singleton pattern ensures a class has only one instance and provides a global point of access to it. Unlike the factory constructor, the singleton pattern is usually implemented with a private constructor and a static instance that is immediately initialized.
+
+#### Example:
+
+Let’s create a singleton class `AppSettings` to store application-wide settings.
+
+```dart
+class AppSettings {
+  // Static instance of the class
+  static final AppSettings _instance = AppSettings._internal();
+
+  // Private named constructor
+  AppSettings._internal();
+
+  // Factory constructor returns the static instance
+  factory AppSettings() {
+    return _instance;
+  }
+
+  // Example settings
+  String appTheme = 'Light';
+
+  void setTheme(String theme) {
+    appTheme = theme;
+    print("App theme set to $theme");
+  }
+}
+
+void main() {
+  var settings1 = AppSettings();
+  settings1.setTheme('Dark');
+
+  var settings2 = AppSettings();
+  print("Current theme: ${settings2.appTheme}");  // Outputs: "Dark"
+
+  print(settings1 == settings2);  // Outputs: true, showing that settings1 and settings2 are the same instance
+}
+```
+
+**Explanation**:
+- `_instance` is created when the class is loaded and remains the only instance.
+- The factory constructor always returns `_instance`, guaranteeing there is only one instance throughout the application lifecycle.
+
+---
+
+### 3. **Lazy Singleton**
+
+A lazy singleton delays the instantiation of the singleton instance until it’s needed, saving memory resources when the object isn’t immediately required. This pattern can be useful when the instantiation is resource-intensive and might not be needed right away.
+
+#### Example:
+
+In this example, we’ll create a `Logger` class, a singleton that initializes only when it’s called the first time.
+
+```dart
+class Logger {
+  static Logger? _instance;
+
+  // Private constructor
+  Logger._internal();
+
+  // Static method for accessing the single instance
+  static Logger get instance {
+    _instance ??= Logger._internal();  // Create the instance lazily if it doesn’t exist
+    return _instance!;
+  }
+
+  void log(String message) {
+    print("Log message: $message");
+  }
+}
+
+void main() {
+  // Logger instance is not created until it's first accessed
+  Logger.instance.log("This is a log message.");
+
+  // Subsequent calls use the same instance
+  var logger1 = Logger.instance;
+  var logger2 = Logger.instance;
+
+  print(logger1 == logger2);  // Outputs: true
+}
+```
+
+**Explanation**:
+- Here, `Logger` uses lazy initialization, as `_instance` is only created when `Logger.instance` is accessed for the first time.
+- `_instance ??= Logger._internal();` is a shorthand for assigning `_instance` only if it is null, ensuring the singleton instance is created only on demand.
+
+---
+
+### Summary Table
+
+| Pattern              | Purpose                                                                                             | Example Use Case                                    |
+|----------------------|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------|
+| **Factory**          | Controls instance creation by returning an existing instance or a new one based on conditions.      | Database connection, service layer instances.       |
+| **Singleton**        | Guarantees a single instance of a class across the app, instantiated when the app starts.           | App settings, configuration management.             |
+| **Lazy Singleton**   | Like a singleton, but instantiates only when accessed, saving memory and processing resources.      | Logger, database connection pools.                  |
+
+---
+
